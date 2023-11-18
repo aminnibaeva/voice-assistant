@@ -1,0 +1,139 @@
+* {
+    font-family: "Roboto", serif;
+}
+
+#chat-circle {
+    position: fixed;
+    bottom: 2%;
+    right: 285px;
+    background: #4c9fed;
+    width: 55px;
+    height: 55px;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+
+#exit-icon {
+    margin: 22%;
+    width: 30%;
+    height: 30%;
+}
+
+#chat-box {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    display: none;
+    margin: 20px;
+    border: 1px solid #ccc;
+    width: 300px;
+    height: 500px;
+    border: none;
+    border-radius: 5%;
+    box-shadow: 2px 3px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+#chat-box-header {
+    padding: 10px 10px 10px 20px;
+    color: #24526f;
+    font-size: 22px;
+}
+
+#chat-box-header-line {
+    content: "";
+    display: block;
+    height: 1px;
+    background-color: #e6e6e6;
+}
+
+.chat-box-search-container {
+    margin: 10px 10px 0px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.chat-box-search-input {
+    padding: 2% 2% 2% 3%;
+    border: 0px;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 270px;
+    background-color: #f4f6ff;
+    color: #24526f;
+    /* Font color */
+    outline: none;
+}
+
+.chat-box-search-icon {
+    position: absolute;
+    width: 6.5%;
+    color: #fff;
+    cursor: pointer;
+    transform: translateX(1230%);
+}
+
+.chat-box-search-input::placeholder {
+    color: #24526f;
+    opacity: 0.7;
+}
+
+.chat-box-body {
+    overflow-y: auto;
+    height: 400px;
+}
+
+.chat-box-command {
+    height: 40px;
+    width: 270px;
+    margin: 15px 0px 15px 5px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 0px rgba(34, 60, 80, 0.08);
+}
+
+::-webkit-scrollbar {
+    width: 16px;
+    padding: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+}
+
+.chat-box-command-text {
+    padding: 10px 10px 5px 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 250px;
+    overflow: hidden;
+    color: #24526f;
+}
+
+#voice-circle {
+    position: fixed;
+    bottom: 100px;
+    right: 55px;
+    background: #4c9fed;
+    width: 55px;
+    height: 55px;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+
+#voice-icon {
+    height: 80%;
+}
