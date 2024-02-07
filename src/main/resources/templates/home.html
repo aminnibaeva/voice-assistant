@@ -11,16 +11,14 @@
 <body>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <div id="body">
-    <button id="chat-circle" th:onclick="toggleDiv()"><img id="exit-icon"
-                                                           src="https://i.ibb.co/85fcKPJ/Cross-icon-white-svg.png">
+    <button id="chat-circle" th:onclick="toggleDiv()"><img id="exit-icon" th:src="@{/images/cross-icon-white.png}">
     </button>
     <div id="chat-box">
         <div id="chat-box-header"> Управление сайтом</div>
         <div id="chat-box-header-line"></div>
         <div class="chat-box-search-container">
-            <input id="searchbar" th:onkeyup="search_animal()" type="text" class="chat-box-search-input"
-                   placeholder="Поиск команд"> <img class="chat-box-search-icon"
-                                                    src="https://i.ibb.co/6wkKvp8/search.png" alt="search" border="0">
+            <input id="searchbar" th:onkeyup="search()" type="text" class="chat-box-search-input"
+                   placeholder="Поиск команд"> <img class="chat-box-search-icon" th:src="@{/images/search-magnifier-icon-white.png}" alt="search" border="0">
         </div>
         <div class="chat-box-body">
             <div class='chat-box-command command'>
@@ -50,9 +48,11 @@
             <div class='chat-box-command command'>
                 <div class='chat-box-command-text'>Обнови страницу</div>
             </div>
-            <button id="voice-circle"><img id="voice-icon" src="https://i.ibb.co/k16PCmg/RXETEGL.png"></button>
+            <button id="voice-circle"><img id="voice-icon" th:src="@{/images/record-off-icon-white.png}"></button>
         </div>
     </div>
 </div>
+
+<script type="text/javascript" th:src="@{/scripts/recording.js}"></script>
 </body>
 </html>

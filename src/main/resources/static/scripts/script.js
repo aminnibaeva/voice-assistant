@@ -1,22 +1,20 @@
 function toggleDiv() {
-    var myDiv = document.getElementById("chat-box");
+    const myDiv = document.getElementById("chat-box");
     if (myDiv.style.display === "none") {
         myDiv.style.display = "block";
-    }
-    else {
+    } else {
         myDiv.style.display = "none";
     }
 }
 
-function search_animal() {
+function search() {
     let input = document.getElementById("searchbar").value;
     input = input.toLowerCase();
     let x = document.getElementsByClassName("command");
-    for (i = 0; i < x.length; i++) {
+    for (let i = 0; i < x.length; i++) {
         if (!x[i].innerHTML.toLowerCase().includes(input)) {
             x[i].style.display = "none";
-        }
-        else {
+        } else {
             x[i].style.display = "list-item";
         }
     }
