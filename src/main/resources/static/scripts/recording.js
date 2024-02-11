@@ -43,7 +43,7 @@ function sendRecording(audioBlob) {
     const formData = new FormData();
     formData.append('audio', audioBlob);
 
-    fetch('/upload-audio', {
+    fetch('/recognize-audio', {
         method: 'POST',
         body: formData
     })
