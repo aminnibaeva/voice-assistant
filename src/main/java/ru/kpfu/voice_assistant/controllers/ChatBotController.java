@@ -1,6 +1,8 @@
 package ru.kpfu.voice_assistant.controllers;
 
+import dto.RecognizedVoiceDto;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +26,7 @@ public class ChatBotController {
     }
 
     @PostMapping("/recognize-audio")
-    public String recognizeAudio(@RequestPart("audio") MultipartFile file) throws IOException, InterruptedException {
+    public ResponseEntity<RecognizedVoiceDto> recognizeAudio(@RequestPart("audio") MultipartFile file) throws IOException, InterruptedException {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest requestRecognizeText = HttpRequest.newBuilder()
                 .uri(URI.create(voiceRecognizerUrl))
@@ -32,6 +34,6 @@ public class ChatBotController {
                 .build();
         HttpResponse<String> recognizedAudioResponse = httpClient.send(requestRecognizeText, HttpResponse.BodyHandlers.ofString());
 
-        return recognizedAudioResponse.body();
+        return ResponseEntity.ok(new RecognizedVoiceDto(recognizedAudioResponse.body()));
     }
 }

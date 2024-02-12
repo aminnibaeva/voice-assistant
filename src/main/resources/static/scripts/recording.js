@@ -3,6 +3,7 @@ let audioChunks = [];
 let isRecording = false;
 
 const recordButton = document.getElementById('voice-circle');
+const chatBoxBody = document.getElementById('main-chat-box');
 
 recordButton.addEventListener('click', () => {
     if (!isRecording) {
@@ -49,7 +50,11 @@ function sendRecording(audioBlob) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log('Response from server:', data);
+            chatBoxBody.innerHTML =
+                '<div class="chat-box-command command">'
+                + '<div class="chat-box-command-text">' + data['text'] + '</div>'
+                + '</div>'
+                + chatBoxBody.innerHTML
         })
         .catch(error => {
             console.error('Error sending audio:', error);
