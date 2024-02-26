@@ -18,38 +18,12 @@
         <div id="chat-box-header-line"></div>
         <div class="chat-box-search-container">
             <input id="searchbar" th:onkeyup="search()" type="text" class="chat-box-search-input"
-                   placeholder="Поиск команд"> <img class="chat-box-search-icon" th:src="@{/images/search-magnifier-icon-white.png}" alt="search" border="0">
+                   placeholder="Поиск команд"> <img class="chat-box-search-icon"
+                                                    th:src="@{/images/search-magnifier-icon-white.png}" alt="search">
         </div>
         <div id="main-chat-box" class="chat-box-body">
-            <div class='chat-box-command command'>
-                <div class='chat-box-command-text'>Открой главную страницу</div>
-            </div>
-            <div class='chat-box-command command'>
-                <div class='chat-box-command-text'>Найди последние новости</div>
-            </div>
-            <div class='chat-box-command command'>
-                <div class='chat-box-command-text'>Покажи мои заказы</div>
-            </div>
-            <div class='chat-box-command command'>
-                <div class='chat-box-command-text'>Поищи информацию о продукте [название п...</div>
-            </div>
-            <div class='chat-box-command command'>
-                <div class='chat-box-command-text'>Покажи избранное</div>
-            </div>
-            <div class='chat-box-command command'>
-                <div class='chat-box-command-text'>Добавь товар в корзину</div>
-            </div>
-            <div class='chat-box-command command'>
-                <div class='chat-box-command-text'>Оформи заказ на [количество] единиц товара</div>
-            </div>
-            <div class='chat-box-command command'>
-                <div class='chat-box-command-text'>Покажи мой профиль</div>
-            </div>
-            <div class='chat-box-command command'>
-                <div class='chat-box-command-text'>Обнови страницу</div>
-            </div>
-            <button id="voice-circle"><img id="voice-icon" th:src="@{/images/record-off-icon-white.png}"></button>
         </div>
+        <button id="voice-circle"><img id="voice-icon" th:src="@{/images/record-off-icon-white.png}"></button>
     </div>
 </div>
 

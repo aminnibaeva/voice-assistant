@@ -34,6 +34,9 @@ public class ChatBotController {
                 .build();
         HttpResponse<String> recognizedAudioResponse = httpClient.send(requestRecognizeText, HttpResponse.BodyHandlers.ofString());
 
+        if (recognizedAudioResponse.body().equals("")) {
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.ok(new RecognizedVoiceDto(recognizedAudioResponse.body()));
     }
 }

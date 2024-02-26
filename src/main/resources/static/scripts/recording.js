@@ -44,17 +44,26 @@ function sendRecording(audioBlob) {
     const formData = new FormData();
     formData.append('audio', audioBlob);
 
+    //определить домен, с которого идёт запрос
+    document.domain;
+
     fetch('/recognize-audio', {
         method: 'POST',
         body: formData
     })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else {
+                throw new Error('Failed to recognize audio');
+            }
+        })
         .then(data => {
             chatBoxBody.innerHTML =
                 '<div class="chat-box-command command">'
                 + '<div class="chat-box-command-text">' + data['text'] + '</div>'
                 + '</div>'
-                + chatBoxBody.innerHTML
+                + chatBoxBody.innerHTML;
         })
         .catch(error => {
             console.error('Error sending audio:', error);
