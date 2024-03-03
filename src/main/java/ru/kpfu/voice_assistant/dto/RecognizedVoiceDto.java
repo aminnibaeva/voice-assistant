@@ -1,4 +1,4 @@
-package dto;
+package ru.kpfu.voice_assistant.dto;
 
 public class RecognizedVoiceDto {
     private String text;

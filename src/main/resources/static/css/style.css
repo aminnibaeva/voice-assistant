@@ -27,12 +27,11 @@
     right: 20px;
     display: none;
     margin: 20px;
-    border: 1px solid #ccc;
     width: 300px;
     height: 500px;
     border: none;
     border-radius: 5%;
-    box-shadow: 2px 3px 8px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 3px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 #chat-box-header {
@@ -49,14 +48,14 @@
 }
 
 .chat-box-search-container {
-    margin: 10px 10px 0px 10px;
+    margin: 10px 10px 0 10px;
     display: flex;
     align-items: center;
 }
 
 .chat-box-search-input {
     padding: 2% 2% 2% 3%;
-    border: 0px;
+    border: 0;
     border-radius: 5px;
     font-size: 16px;
     width: 270px;
@@ -87,14 +86,14 @@
 .chat-box-command {
     height: 40px;
     width: 270px;
-    margin: 15px 0px 15px 5px;
+    margin: 15px 0 15px 5px;
     border-radius: 5px;
-    box-shadow: 5px 5px 10px 0px rgba(34, 60, 80, 0.08);
+    box-shadow: 5px 5px 10px 0 rgba(34, 60, 80, 0.08);
 }
 
 ::-webkit-scrollbar {
     width: 16px;
-    padding: 0px;
+    padding: 0;
 }
 
 ::-webkit-scrollbar-track {

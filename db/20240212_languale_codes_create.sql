@@ -324,3 +324,21 @@ CREATE TABLE IF NOT EXISTS page_associations
 
 ALTER TABLE ONLY page_associations
     ADD CONSTRAINT page_associations_page_id FOREIGN KEY (page_id) REFERENCES application_pages (page_id);
+
+create table users
+(
+    id       bigint       not null
+        constraint users_pkey
+            primary key,
+    email    varchar(255) not null
+        constraint unique_email
+            unique,
+    password varchar(255) not null,
+    role     varchar(255) not null
+        constraint users_role_check
+            check ((role)::text = ANY
+                   ((ARRAY ['USER'::character varying, 'OWNER'::character varying, 'ADMIN'::character varying])::text[])),
+    username varchar(255) not null
+        constraint unique_username
+            unique
+);
