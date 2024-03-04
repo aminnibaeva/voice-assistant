@@ -17,6 +17,10 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
+    public enum State {
+        NOT_CONFIRMED, CONFIRMED, DELETED, BANNED
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
@@ -35,6 +39,12 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
+
+    @Column(name = "confirm_code")
+    private String confirmCode;
+
+    @Enumerated(value = EnumType.STRING)
+    private State state;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

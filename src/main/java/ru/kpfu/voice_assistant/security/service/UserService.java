@@ -1,5 +1,7 @@
 package ru.kpfu.voice_assistant.security.service;
 
+import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -49,7 +51,7 @@ public class UserService {
      */
     public User getByUsername(String username) {
         return repository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
+            .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
 
     }
 
@@ -71,7 +73,7 @@ public class UserService {
      */
     public User getCurrentUser() {
         // Получение имени пользователя из контекста Spring Security
-        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return getByUsername(username);
     }
 
@@ -83,8 +85,12 @@ public class UserService {
      */
     @Deprecated
     public void getAdmin() {
-        var user = getCurrentUser();
+        User user = getCurrentUser();
         user.setRole(Role.ADMIN);
         save(user);
+    }
+
+    public Optional<User> getByEmail(String email) {
+        return repository.findByEmail(email);
     }
 }

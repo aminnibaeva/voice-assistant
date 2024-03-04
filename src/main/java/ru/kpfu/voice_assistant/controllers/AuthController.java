@@ -4,11 +4,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.kpfu.voice_assistant.security.domain.dto.ConfirmRequest;
 import ru.kpfu.voice_assistant.security.domain.dto.JwtAuthenticationResponse;
+import ru.kpfu.voice_assistant.security.domain.dto.ResponseDto;
 import ru.kpfu.voice_assistant.security.domain.dto.SignInRequest;
 import ru.kpfu.voice_assistant.security.domain.dto.SignUpRequest;
 import ru.kpfu.voice_assistant.security.service.AuthenticationService;
@@ -24,6 +27,17 @@ public class AuthController {
     @PostMapping("/sign-up")
     public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) {
         return authenticationService.signUp(request);
+    }
+
+    @Operation(summary = "Подтверждение почты пользователя")
+    @PostMapping("/confirm")
+    public ResponseEntity<ResponseDto> confirm(@RequestBody @Valid ConfirmRequest request) {
+        authenticationService.confirm(request);
+        return ResponseEntity.ok().body(
+            ResponseDto.builder()
+                .statusCode("200")
+                .message("Пользователь успешно зарегистрирован.")
+                .build());
     }
 
     @Operation(summary = "Авторизация пользователя")

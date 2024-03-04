@@ -1,5 +1,7 @@
 package ru.kpfu.voice_assistant.security.config;
 
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +21,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import ru.kpfu.voice_assistant.security.domain.model.Role;
 import ru.kpfu.voice_assistant.security.service.UserService;
 
-import java.util.List;
-
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -29,21 +29,20 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private static final String[] PERMIT_ALL = {
-            "/auth/**",
-            "/swagger-ui/**",
-            "/swagger-resources/*",
-            "/v3/api-docs/**",
-            "/sign-up",
-            "/home",
-            "/css/**",
-            "/scripts/**",
-            "/images/**",
-            "/favicon.ico"
+        "/auth/**",
+        "/swagger-ui/**",
+        "/swagger-resources/*",
+        "/v3/api-docs/**",
+        "/sign-up",
+        "/home",
+        "/css/**",
+        "/scripts/**",
+        "/images/**"
     };
 
     private static final String[] ADMIN = {
-            "/endpoint",
-            "/admin/**"
+        "/endpoint",
+        "/admin/**"
     };
 
 
@@ -53,21 +52,22 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(request -> {
-                    var corsConfiguration = new CorsConfiguration();
-                    corsConfiguration.setAllowedOriginPatterns(List.of("*"));
-                    corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                    corsConfiguration.setAllowedHeaders(List.of("*"));
-                    corsConfiguration.setAllowCredentials(true);
-                    return corsConfiguration;
-                }))
-                .authorizeHttpRequests(request -> request
-                        .requestMatchers(PERMIT_ALL).permitAll()
-                        .requestMatchers(ADMIN).hasRole(Role.ADMIN.name())
-                        .anyRequest().authenticated())
-                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
-                .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+            .cors(cors -> cors.configurationSource(request -> {
+                CorsConfiguration corsConfiguration = new CorsConfiguration();
+                corsConfiguration.setAllowedOriginPatterns(List.of("*"));
+                corsConfiguration.setAllowedMethods(
+                    List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                corsConfiguration.setAllowedHeaders(List.of("*"));
+                corsConfiguration.setAllowCredentials(true);
+                return corsConfiguration;
+            }))
+            .authorizeHttpRequests(request -> request
+                .requestMatchers(PERMIT_ALL).permitAll()
+                .requestMatchers(ADMIN).hasRole(Role.ADMIN.name())
+                .anyRequest().authenticated())
+            .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
+            .authenticationProvider(authenticationProvider())
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
@@ -86,7 +86,7 @@ public class SecurityConfiguration {
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
-            throws Exception {
+        throws Exception {
         return config.getAuthenticationManager();
     }
 }
