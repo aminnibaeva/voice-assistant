@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kpfu.voice_assistant.security.domain.dto.ConfirmRequest;
 import ru.kpfu.voice_assistant.security.domain.dto.JwtAuthenticationResponse;
-import ru.kpfu.voice_assistant.security.domain.dto.ResponseDto;
 import ru.kpfu.voice_assistant.security.domain.dto.SignInRequest;
 import ru.kpfu.voice_assistant.security.domain.dto.SignUpRequest;
 import ru.kpfu.voice_assistant.security.service.AuthenticationService;
@@ -25,19 +24,14 @@ public class AuthController {
 
     @Operation(summary = "Регистрация пользователя")
     @PostMapping("/sign-up")
-    public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) {
-        return authenticationService.signUp(request);
+    public ResponseEntity<Boolean> signUp(@RequestBody @Valid SignUpRequest request) {
+        return ResponseEntity.ok().body(authenticationService.signUp(request));
     }
 
     @Operation(summary = "Подтверждение почты пользователя")
     @PostMapping("/confirm")
-    public ResponseEntity<ResponseDto> confirm(@RequestBody @Valid ConfirmRequest request) {
-        authenticationService.confirm(request);
-        return ResponseEntity.ok().body(
-            ResponseDto.builder()
-                .statusCode("200")
-                .message("Пользователь успешно зарегистрирован.")
-                .build());
+    public ResponseEntity<Boolean> confirm(@RequestBody @Valid ConfirmRequest request) {
+        return ResponseEntity.ok().body(authenticationService.confirm(request));
     }
 
     @Operation(summary = "Авторизация пользователя")

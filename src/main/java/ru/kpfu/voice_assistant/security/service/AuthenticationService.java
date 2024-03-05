@@ -33,10 +33,9 @@ public class AuthenticationService {
      * Регистрация пользователя
      *
      * @param request данные пользователя
-     * @return токен
+     * @return создан ли новый пользователь
      */
-    public JwtAuthenticationResponse signUp(SignUpRequest request) {
-
+    public boolean signUp(SignUpRequest request) {
         User user = User.builder()
             .username(request.getUsername())
             .email(request.getEmail())
@@ -46,16 +45,15 @@ public class AuthenticationService {
             .confirmCode(UUID.randomUUID().toString())
             .build();
 
-        userService.create(user);
-
         Map<String, String> userData = new HashMap<>();
         userData.put("username", user.getUsername());
         userData.put("confirmCode", user.getConfirmCode());
 
-        emailUtil.sendVerifyMail(user.getEmail(), SUBJECT_FOR_VERIFY_ACCOUNT_MAIL, userData);
-
-        String jwt = jwtService.generateToken(user);
-        return new JwtAuthenticationResponse(jwt);
+        if (userService.create(user)) {
+            emailUtil.sendVerifyMail(user.getEmail(), SUBJECT_FOR_VERIFY_ACCOUNT_MAIL, userData);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -66,9 +64,7 @@ public class AuthenticationService {
      */
     public JwtAuthenticationResponse signIn(SignInRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-            request.getUsername(),
-            request.getPassword()
-        ));
+            request.getUsername(), request.getPassword()));
 
         UserDetails user = userService
             .userDetailsService()
@@ -78,13 +74,16 @@ public class AuthenticationService {
         return new JwtAuthenticationResponse(jwt);
     }
 
-    public void confirm(ConfirmRequest request) {
+    public boolean confirm(ConfirmRequest request) {
         User user = userService.getByEmail(request.getEmail())
             .orElseThrow(
                 () -> new UsernameNotFoundException("Пользователь с такой почтой не найден"));
-        if (user.getState().equals(User.State.NOT_CONFIRMED)) {
+        if (user.getState().equals(User.State.NOT_CONFIRMED) && user.getConfirmCode()
+            .equals(request.getConfirmCode())) {
             user.setState(User.State.CONFIRMED);
             userService.save(user);
+            return true;
         }
+        return false;
     }
 }

@@ -17,8 +17,20 @@ function signUp() {
     })
         .then(response => {
             if (response.status === 200) {
+                return response.json();
+            }
+            else {
+                throw new Error('Failed to recognize audio');
+            }
+        })
+        .then(data => {
+            if (data === true) {
                 document.getElementById("signUpForm").style.display = "none";
                 document.getElementById("confirmationForm").style.display = "";
+            }
+            else {
+                document.getElementById("signUpForm").style.display = "none";
+                document.getElementById("alreadyRegistered").style.display = "";
             }
         });
 }
@@ -37,5 +49,22 @@ function confirm() {
             confirmCode: confirmCode,
             role: "OWNER"
         })
-    });
+    })
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            }
+            else {
+                throw new Error('Failed to recognize audio');
+            }
+        })
+        .then(data => {
+            if (data === true) {
+                document.getElementById("confirmationForm").style.display = "none";
+                document.getElementById("confirmed").style.display = "";
+                document.getElementById("notConfirmed").style.display = "none";
+            } else {
+                document.getElementById("notConfirmed").style.display = "";
+            }
+        });
 }

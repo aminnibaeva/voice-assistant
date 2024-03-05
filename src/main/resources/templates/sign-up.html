@@ -10,7 +10,11 @@
     <script type="text/javascript" th:src="@{/scripts/sign-up.js}"></script>
 </head>
 
+
 <div class="container">
+    <h3 class="row justify-content-center" id="alreadyRegistered" style="display: none;">Пользователь с таким именем или почтой уже зарегистрирован</h3>
+    <h3 class="row justify-content-center" id="confirmed" style="display: none;">Аккаунт успешно подтверждён</h3>
+    <h3 class="row justify-content-center" id="notConfirmed" style="display: none;">Неверный код подтверждения</h3>
     <div class="row justify-content-center" id="signUpForm">
         <div class="col-md-5">
             <div class="card">
@@ -49,7 +53,9 @@
                             <input class="form-control" id="confirmCode">
                         </div>
                         <div class="d-flex flex-row align-items-center justify-content-between">
-                            <button type="button" class="btn btn-primary" onclick="confirm()">Confirm</button>
+                            <button type="button" class="btn btn-primary" onclick="confirm()">
+                                Confirm
+                            </button>
                         </div>
                     </form>
                 </div>

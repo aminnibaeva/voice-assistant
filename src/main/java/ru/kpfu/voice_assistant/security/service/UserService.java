@@ -29,19 +29,22 @@ public class UserService {
     /**
      * Создание пользователя
      *
-     * @return созданный пользователь
+     * @return создан ли в системе новый пользователь
      */
-    public User create(User user) {
-        if (repository.existsByUsername(user.getUsername())) {
-            // Заменить на свои исключения
-            throw new RuntimeException("Пользователь с таким именем уже существует");
+    public boolean create(User user) {
+        Optional<User> userFromDb = repository.findByUsernameAndEmail(user.getUsername(), user.getEmail());
+        if (userFromDb.isPresent()) {
+            if (userFromDb.get().getState().equals(User.State.NOT_CONFIRMED)) {
+                userFromDb.get().setConfirmCode(user.getConfirmCode());
+                user = userFromDb.get();
+            }
+        } else {
+            if (repository.existsByEmailOrUsername(user.getEmail(), user.getUsername())) {
+                return false;
+            }
         }
-
-        if (repository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("Пользователь с таким email уже существует");
-        }
-
-        return save(user);
+        save(user);
+        return true;
     }
 
     /**
