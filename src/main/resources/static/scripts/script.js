@@ -2,7 +2,8 @@ function toggleDiv() {
     const myDiv = document.getElementById("chat-box");
     if (myDiv.style.display === "none") {
         myDiv.style.display = "block";
-    } else {
+    }
+    else {
         myDiv.style.display = "none";
     }
 }
@@ -14,7 +15,8 @@ function search() {
     for (let i = 0; i < x.length; i++) {
         if (!x[i].innerHTML.toLowerCase().includes(input)) {
             x[i].style.display = "none";
-        } else {
+        }
+        else {
             x[i].style.display = "list-item";
         }
     }

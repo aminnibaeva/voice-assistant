@@ -3,9 +3,11 @@ package ru.kpfu.voice_assistant.config;
 import java.time.format.DateTimeFormatter;
 
 public class ApplicationConstants {
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm dd.MM.uuuu");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
+        "HH:mm dd.MM.uuuu");
 
-    public static final DateTimeFormatter BIRTH_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.uuuu");
+    public static final DateTimeFormatter BIRTH_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
+        "dd.MM.uuuu");
 
     public static final String SUBJECT_FOR_RECOVERY_PASSWORD_MAIL = "Восстановление пароля";
 

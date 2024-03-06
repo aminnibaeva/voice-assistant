@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Voice assistant</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="" rel="stylesheet" th:href="@{/css/sign-up-style.css}">
+</head>
+
+
+<div class="container">
+    <h3 class="row justify-content-center" id="alreadyRegistered" style="display: none;">
+        Пользователь с таким именем или почтой уже зарегистрирован</h3>
+    <h3 class="row justify-content-center" id="notConfirmed" style="display: none;">Неверный код
+        подтверждения</h3>
+    <div class="row justify-content-center" id="signUpForm"
+         th:if="${registrationSuccessful == null}">
+        <div class="col-md-5">
+            <div class="card">
+                <h2 class="card-title text-center">Register</h2>
+                <div class="card-body py-md-4">
+                    <form method="post" role="form" th:action="@{/register}" th:object="${user}">
+                        <div class="form-group">
+                            <input class="form-control" id="username" placeholder="Username"
+                                   th:field="*{username}" type="text">
+                            <p class="text-danger" th:errors="*{username}"
+                               th:if="${#fields.hasErrors('username')}">
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="email" placeholder="Email" th:field="*{email}"
+                                   type="email">
+                            <p class="text-danger" th:errors="*{email}"
+                               th:if="${#fields.hasErrors('email')}">
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="password" placeholder="Password"
+                                   th:field="*{password}" type="password">
+                            <p class="text-danger" th:errors="*{password}"
+                               th:if="${#fields.hasErrors('password')}">
+                            </p>
+                        </div>
+                        <div class="d-flex flex-row align-items-center justify-content-between">
+                            <button class="btn btn-primary" type="submit">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center" id="confirmationForm" th:if="${registrationSuccessful}">
+        <div class="col-md-5">
+            <div class="card">
+                <h2 class="card-title text-center">Confirm</h2>
+                <div class="card-body py-md-4">
+                    <form method="post" role="form" th:action="@{/confirm}"
+                          th:object="${userConfirmation}">
+                        <div class="form-group">
+                            <input class="form-control" id="confirmCode" th:field="*{confirmCode}">
+                            <input class="form-control" id="confirmEmail" style="display: none;"
+                                   th:name="confirmEmail" th:value="${confirmEmail}">
+                        </div>
+                        <div class="d-flex flex-row align-items-center justify-content-between">
+                            <button class="btn btn-primary" type="submit">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

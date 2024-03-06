@@ -9,7 +9,8 @@ recordButton.addEventListener('click', () => {
     if (!isRecording) {
         startRecording();
         recordButton.innerHTML = '<img id="voice-icon" src="../images/record-on-icon-white.gif">';
-    } else {
+    }
+    else {
         stopRecordingAndSend();
         recordButton.innerHTML = '<img id="voice-icon" src="../images/record-off-icon-white.png">';
     }
@@ -54,7 +55,8 @@ function sendRecording(audioBlob) {
         .then(response => {
             if (response.status === 200) {
                 return response.json();
-            } else {
+            }
+            else {
                 throw new Error('Failed to recognize audio');
             }
         })

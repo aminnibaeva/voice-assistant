@@ -6,7 +6,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Email Confirmation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style type="text/css">
+  <style>
 
       @media screen {
           @font-face {

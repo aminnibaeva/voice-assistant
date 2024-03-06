@@ -33,10 +33,6 @@ public class EmailUtil {
         sendMail(to, subject, data, FREEMARKER_RECOVERY_PASSWORD_TEMPLATE_NAME);
     }
 
-    public void sendVerifyMail(String to, String subject, Map<String, String> data) {
-        sendMail(to, subject, data, FREEMARKER_VERIFY_ACCOUNT_TEMPLATE_NAME);
-    }
-
     private void sendMail(String to, String subject, Map<String, String> data,
         String templateName) {
         Configuration configuration = prepareConfiguration();
@@ -76,11 +72,14 @@ public class EmailUtil {
         return configuration;
     }
 
-
     private Map<String, Object> prepareData(Map<String, String> freemarkerData) {
         Map<String, Object> data = new HashMap<>();
         data.put("data", freemarkerData);
         return data;
+    }
+
+    public void sendVerifyMail(String to, String subject, Map<String, String> data) {
+        sendMail(to, subject, data, FREEMARKER_VERIFY_ACCOUNT_TEMPLATE_NAME);
     }
 
 }
