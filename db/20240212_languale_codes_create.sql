@@ -327,18 +327,16 @@ ALTER TABLE ONLY page_associations
 
 create table users
 (
-    id       bigint       not null
-        constraint users_pkey
-            primary key,
-    email    varchar(255) not null
-        constraint unique_email
+    id           bigint       not null
+        primary key,
+    confirm_code varchar(255),
+    email        varchar(255) not null
+        constraint user_unique_email
             unique,
-    password varchar(255) not null,
-    role     varchar(255) not null
-        constraint users_role_check
-            check ((role)::text = ANY
-                   ((ARRAY ['USER'::character varying, 'OWNER'::character varying, 'ADMIN'::character varying])::text[])),
-    username varchar(255) not null
-        constraint unique_username
+    password     varchar(255) not null,
+    role         varchar(255) not null,
+    state        varchar(255),
+    username     varchar(255) not null
+        constraint user_unique_username
             unique
 );
