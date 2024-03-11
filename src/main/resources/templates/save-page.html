@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>JavaScript example</title>
+    <meta charSet="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&amp;display=swap"
+          rel="stylesheet"/>
+    <style media="only screen">
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        html {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0;
+            overflow: auto;
+        }
+
+        body {
+            padding: 16px;
+            overflow: auto;
+            background-color: transparent
+        }
+    </style>
+</head>
+<body>
+<div id="myGrid" style="height: calc(100% - 40px)" class="ag-theme-quartz"></div>
+<button id="addRowBtn">Добавить строку</button>
+<button onclick="sendData()">Отправить</button>
+<script src="https://cdn.jsdelivr.net/npm/ag-grid-community@31.1.1/dist/ag-grid-community.min.js"></script>
+<!--<script th:src="@{/scripts/main.js}" type="text/javascript"></script>-->
+<script>
+    let gridApi;
+
+    const gridOptions = {
+        rowData: [],
+        columnDefs: [
+            {headerName: "Страница", field: "page", editable: true},
+            {
+                headerName: "Ассоциации",
+                field: "association",
+                editable: true,
+                width: 600
+            },
+        ],
+        defaultColDef: {
+            filter: 'agTextColumnFilter',
+            floatingFilter: true,
+        },
+        rowSelection: 'multiple',
+        suppressRowClickSelection: true,
+        pagination: true,
+        paginationPageSize: 30,
+        paginationPageSizeSelector: [30, 60, 90],
+    };
+
+    const gridDiv = document.querySelector('#myGrid');
+    gridApi = agGrid.createGrid(gridDiv, gridOptions);
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const addRowBtn = document.getElementById('addRowBtn');
+        addRowBtn.addEventListener('click', function () {
+            const newRowData = {page: "", association: ""};
+            gridApi.applyTransaction({add: [newRowData]});
+            if (!gridApi.rowData) {
+                gridApi.rowData = [];
+            }
+            gridApi.rowData.push(newRowData);
+        });
+    });
+
+
+    function sendData() {
+        const rowData = gridApi.rowData;
+
+        fetch('/save-page-associations', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(rowData)
+        });
+    }
+</script>
+</body>
+</html>

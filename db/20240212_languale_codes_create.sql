@@ -299,32 +299,6 @@ VALUES ('Xhosa', 'South Africa', 'xh-ZA');
 INSERT INTO public.language_codes (language, country, code)
 VALUES ('Zulu', 'South Africa', 'zu-ZA');
 
-CREATE TABLE IF NOT EXISTS application
-(
-    application_id SERIAL PRIMARY KEY,
-    domain         character varying NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS application_pages
-(
-    application_id bigint            NOT NULL,
-    page_id        SERIAL PRIMARY KEY,
-    page_name      character varying NOT NULL
-);
-
-ALTER TABLE ONLY application_pages
-    ADD CONSTRAINT application_pages_application_id FOREIGN KEY (application_id) REFERENCES application (application_id);
-
-
-CREATE TABLE IF NOT EXISTS page_associations
-(
-    page_id      bigint            NOT NULL,
-    associations character varying NOT NULL
-);
-
-ALTER TABLE ONLY page_associations
-    ADD CONSTRAINT page_associations_page_id FOREIGN KEY (page_id) REFERENCES application_pages (page_id);
-
 create table users
 (
     id           bigint       not null
@@ -340,3 +314,37 @@ create table users
         constraint user_unique_username
             unique
 );
+
+CREATE TABLE IF NOT EXISTS application
+(
+    application_id bigint            not null
+        primary key,
+    user_id        bigint            NOT NULL,
+    domain         character varying NOT NULL
+);
+
+ALTER TABLE ONLY application
+    ADD CONSTRAINT application_user_id FOREIGN KEY (user_id) REFERENCES users (id);
+
+CREATE TABLE IF NOT EXISTS page
+(
+    page_id        bigint            not null
+        primary key,
+    application_id bigint            NOT NULL,
+    page_name      character varying NOT NULL
+);
+
+ALTER TABLE ONLY page
+    ADD CONSTRAINT application_pages_application_id FOREIGN KEY (application_id) REFERENCES application (application_id);
+
+
+CREATE TABLE IF NOT EXISTS association
+(
+    association_id bigint            not null
+        primary key,
+    page_id        bigint            NOT NULL,
+    association    character varying NOT NULL
+);
+
+ALTER TABLE ONLY association
+    ADD CONSTRAINT page_associations_page_id FOREIGN KEY (page_id) REFERENCES page (page_id);
