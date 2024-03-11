@@ -22,7 +22,7 @@ import lombok.Setter;
 @Table(name = "association")
 public class Association {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long associationId;
 
     private String association;

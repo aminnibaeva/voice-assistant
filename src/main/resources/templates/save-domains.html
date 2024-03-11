@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Save pages</title>
+    <title>Domain list</title>
     <meta charSet="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&amp;display=swap"
@@ -41,13 +41,7 @@
     const gridOptions = {
         rowData: [],
         columnDefs: [
-            {headerName: "Страница", field: "page", editable: true},
-            {
-                headerName: "Ассоциации",
-                field: "association",
-                editable: true,
-                width: 600
-            },
+            {headerName: "Домен", field: "domain", editable: true},
         ],
         defaultColDef: {
             filter: 'agTextColumnFilter',
@@ -56,8 +50,8 @@
         rowSelection: 'multiple',
         suppressRowClickSelection: true,
         pagination: true,
-        paginationPageSize: 30,
-        paginationPageSizeSelector: [30, 60, 90],
+        paginationPageSize: 10,
+        paginationPageSizeSelector: [10, 20, 30],
     };
 
     const gridDiv = document.querySelector('#myGrid');
@@ -66,7 +60,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const addRowBtn = document.getElementById('addRowBtn');
         addRowBtn.addEventListener('click', function () {
-            const newRowData = {page: "", association: ""};
+            const newRowData = {domain: ""};
             gridApi.applyTransaction({add: [newRowData]});
             if (!gridApi.rowData) {
                 gridApi.rowData = [];
@@ -77,14 +71,14 @@
 
 
     function sendData() {
-        const associations = gridApi.rowData;
+        const domains = gridApi.rowData;
 
-        fetch('/save-page-associations', {
+        fetch('/save-domain', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(associations)
+            body: JSON.stringify(domains)
         });
     }
 </script>

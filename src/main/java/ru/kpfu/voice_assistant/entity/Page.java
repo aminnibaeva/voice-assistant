@@ -25,7 +25,7 @@ import lombok.Setter;
 @Table(name = "page")
 public class Page {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long pageId;
 
     private String pageName;
