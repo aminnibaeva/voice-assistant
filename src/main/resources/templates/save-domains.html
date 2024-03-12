@@ -57,6 +57,25 @@
     const gridDiv = document.querySelector('#myGrid');
     gridApi = agGrid.createGrid(gridDiv, gridOptions);
 
+    fetch('/get-domains', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => {
+            if (response.status === 200) {
+                return response.json();
+            }
+            else {
+                throw new Error('Failed to load domains list');
+            }
+        }
+    ).then(body => {
+            gridApi.setGridOption('rowData', body);
+        }
+    )
+
+
     document.addEventListener('DOMContentLoaded', function () {
         const addRowBtn = document.getElementById('addRowBtn');
         addRowBtn.addEventListener('click', function () {

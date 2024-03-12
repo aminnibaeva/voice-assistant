@@ -34,7 +34,8 @@ public class SpringSecurity {
         "/save-page",
         "/save-page-associations",
         "/save-domains",
-        "/save-domain"
+        "/save-domain",
+        "/get-domains"
     };
 
     @Autowired

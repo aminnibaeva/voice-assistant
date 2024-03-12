@@ -2,6 +2,7 @@ package ru.kpfu.voice_assistant.service.impl;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,5 +33,15 @@ public class DomainServiceImpl implements DomainService {
             .map(domainDto -> applicationMapper.toEntity(domainDto, user.getId()))
             .toList();
         domainRepository.saveAll(applications);
+    }
+
+    @Override
+    public List<DomainDto> getDomains(String email) {
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return domainRepository.getApplicationsByUser(user)
+            .stream()
+            .map(applicationMapper::toDto)
+            .collect(Collectors.toList());
     }
 }

@@ -9,4 +9,6 @@ import ru.kpfu.voice_assistant.entity.Application;
 public interface ApplicationMapper {
     @Mapping(target = "user.id", source = "userId")
     Application toEntity(DomainDto dto, Long userId);
+
+    DomainDto toDto(Application entity);
 }
