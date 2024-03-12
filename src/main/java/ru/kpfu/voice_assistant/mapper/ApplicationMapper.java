@@ -10,5 +10,8 @@ public interface ApplicationMapper {
     @Mapping(target = "user.id", source = "userId")
     Application toEntity(DomainDto dto, Long userId);
 
+    @Mapping(target = "user.id", source = "userId")
+    Application toEntity(String domain, Long userId);
+
     DomainDto toDto(Application entity);
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kpfu.voice_assistant.dto.UserConfirmation;
 import ru.kpfu.voice_assistant.dto.UserDto;
 import ru.kpfu.voice_assistant.entity.User;
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private EmailUtil emailUtil;
 
+    @Transactional
     @Override
     public void saveUser(UserDto userDto) {
         User user = User.builder()
@@ -62,6 +64,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Transactional
     @Override
     public boolean confirm(UserConfirmation request) {
         User user = userRepository.findByEmail(request.getConfirmEmail())
@@ -76,6 +79,7 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    @Transactional
     @Override
     public User findByEmailOrUsername(String email, String username) {
         return userRepository.findByEmailOrUsername(email, username);

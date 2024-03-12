@@ -8,4 +8,6 @@ import ru.kpfu.voice_assistant.entity.User;
 
 public interface DomainRepository extends JpaRepository<Application, Long> {
     List<Application> getApplicationsByUser(User user);
+
+    void deleteAllByDomainInAndUser(List<String> domain, User user);
 }

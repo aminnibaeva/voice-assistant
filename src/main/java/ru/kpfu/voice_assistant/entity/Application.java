@@ -25,7 +25,7 @@ import lombok.Setter;
 @Table(name = "application")
 public class Application {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long applicationId;
 
     private String domain;
