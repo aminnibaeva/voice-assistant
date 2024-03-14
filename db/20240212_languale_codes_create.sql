@@ -301,7 +301,7 @@ VALUES ('Zulu', 'South Africa', 'zu-ZA');
 
 create table users
 (
-    id           bigint       not null
+    id           bigserial    not null
         primary key,
     confirm_code varchar(255),
     email        varchar(255) not null
@@ -317,7 +317,7 @@ create table users
 
 CREATE TABLE IF NOT EXISTS application
 (
-    application_id bigint            not null
+    application_id bigserial         not null
         primary key,
     user_id        bigint            NOT NULL,
     domain         character varying NOT NULL
@@ -328,23 +328,13 @@ ALTER TABLE ONLY application
 
 CREATE TABLE IF NOT EXISTS page
 (
-    page_id        bigint            not null
+    page_id        bigserial         not null
         primary key,
     application_id bigint            NOT NULL,
-    page_name      character varying NOT NULL
+    page_name      character varying NOT NULL,
+    associations   character varying NOT NULL
 );
 
 ALTER TABLE ONLY page
     ADD CONSTRAINT application_pages_application_id FOREIGN KEY (application_id) REFERENCES application (application_id);
 
-
-CREATE TABLE IF NOT EXISTS association
-(
-    association_id bigint            not null
-        primary key,
-    page_id        bigint            NOT NULL,
-    association    character varying NOT NULL
-);
-
-ALTER TABLE ONLY association
-    ADD CONSTRAINT page_associations_page_id FOREIGN KEY (page_id) REFERENCES page (page_id);

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PageAssociationDto {
-    private String page;
-    private String association;
+public class PageDto {
+    private String pageName;
+    private String associations;
 }

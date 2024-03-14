@@ -31,11 +31,12 @@ public class SpringSecurity {
 
     private static final String[] AUTHORIZED = {
         "/home",
-        "/save-page",
-        "/save-page-associations",
         "/save-domains",
         "/save-domain",
-        "/get-domains"
+        "/get-domains",
+        "/save-page",
+        "/get-pages/**",
+        "/save-pages/**"
     };
 
     @Autowired

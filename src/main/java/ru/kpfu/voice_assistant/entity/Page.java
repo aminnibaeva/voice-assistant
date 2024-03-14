@@ -30,8 +30,7 @@ public class Page {
 
     private String pageName;
 
-    @OneToMany(mappedBy = "page")
-    private List<Association> associations;
+    private String associations;
 
     @ManyToOne()
     @JoinColumn(name = "application_id")

@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Save pages</title>
+    <title>Save page</title>
     <meta charSet="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&amp;display=swap"
           rel="stylesheet"/>
     <style media="only screen">
         html, body {
-            height: 100%;
-            width: 100%;
+            height: 900px;
+            width: 970px;
             margin: 0;
             box-sizing: border-box;
             -webkit-overflow-scrolling: touch;
@@ -31,22 +33,82 @@
     </style>
 </head>
 <body>
-<div id="myGrid" style="height: calc(100% - 40px)" class="ag-theme-quartz"></div>
-<button id="addRowBtn">Добавить строку</button>
-<button onclick="sendData()">Отправить</button>
+<select id="dropdown">
+    <option value="">Выберите элемент</option>
+</select>
+
+
+<div id="myGrid" style="height: calc(100% - 100px)" class="ag-theme-quartz"></div>
+<button class="btn btn-outline-primary btn-sm" id="addRowBtn">Добавить</button>
+<button class="btn btn-outline-primary btn-sm" onclick="sendData()">Отправить</button>
+
 <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@31.1.1/dist/ag-grid-community.min.js"></script>
 <script>
+    // Функция для заполнения выпадающего списка элементами из запроса
+    async function populateDropdown() {
+        const dropdown = document.getElementById('dropdown');
+        dropdown.innerHTML = '<option value="">Загрузка...</option>'; // Показываем сообщение о загрузке
+
+        try {
+            const data = await fetchData(); // Получаем данные из запроса
+            dropdown.innerHTML = '<option value="">Выберите элемент</option>'; // Сбрасываем список перед заполнением
+
+            // Заполняем список полученными элементами
+            data.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item['domain'];
+                option.textContent = item['domain'];
+                dropdown.appendChild(option);
+            });
+        }
+        catch (error) {
+            console.error('Ошибка загрузки данных:', error);
+            dropdown.innerHTML = '<option value="">Ошибка загрузки данных</option>'; // В случае ошибки показываем сообщение об ошибке
+        }
+    }
+
+    // заполнение селекта
+    function fetchData() {
+        return new Promise((resolve) => {
+
+            fetch('/get-domains', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                    if (response.status === 200) {
+                        return response.json();
+                    }
+                    else {
+                        throw new Error('Failed to load domains list');
+                    }
+                }
+            ).then(body => {
+                    resolve(body);
+                }
+            );
+        });
+    }
+
+    // Вызываем функцию для заполнения выпадающего списка при загрузке страницы
+    populateDropdown();
+
+
     let gridApi;
 
     const gridOptions = {
         rowData: [],
         columnDefs: [
-            {headerName: "Страница", field: "page", editable: true},
+            {headerName: "Страница", field: "pageName", editable: true, width: 300},
+            {headerName: "Ассоциация", field: "associations", editable: true, width: 500},
             {
-                headerName: "Ассоциации",
-                field: "association",
-                editable: true,
-                width: 600
+                headerName: '',
+                field: 'delete',
+                width: 110,
+                cellRenderer: function (params) {
+                    return '<button class="btn btn-outline-danger btn-sm" onclick="deleteRow(' + params.node.rowIndex + ')">Удалить</button>';
+                }
             },
         ],
         defaultColDef: {
@@ -56,17 +118,41 @@
         rowSelection: 'multiple',
         suppressRowClickSelection: true,
         pagination: true,
-        paginationPageSize: 30,
-        paginationPageSizeSelector: [30, 60, 90],
+        paginationPageSize: 15,
+        paginationPageSizeSelector: [15, 30, 45],
     };
 
     const gridDiv = document.querySelector('#myGrid');
     gridApi = agGrid.createGrid(gridDiv, gridOptions);
 
+
+    document.getElementById('dropdown').addEventListener('change', function () {
+        const dropdown = document.getElementById("dropdown");
+
+        fetch('/get-pages/' + dropdown.value, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                }
+                else {
+                    throw new Error('Failed to load page list');
+                }
+            }
+        ).then(body => {
+                gridApi.setGridOption('rowData', body);
+            }
+        );
+    });
+
+
     document.addEventListener('DOMContentLoaded', function () {
         const addRowBtn = document.getElementById('addRowBtn');
         addRowBtn.addEventListener('click', function () {
-            const newRowData = {page: "", association: ""};
+            const newRowData = {domain: ""};
             gridApi.applyTransaction({add: [newRowData]});
             if (!gridApi.rowData) {
                 gridApi.rowData = [];
@@ -77,16 +163,26 @@
 
 
     function sendData() {
-        const associations = gridApi.rowData;
+        let pages = [];
 
-        fetch('/save-page-associations', {
+        gridApi.forEachNode(node => {
+            pages.push({pageName: node.data['pageName'], associations: node.data['associations']});
+        });
+        const dropdown = document.getElementById("dropdown");
+
+        fetch('/save-pages/' + dropdown.value, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(associations)
+            body: JSON.stringify(pages)
         });
     }
+
+    function deleteRow(rowIndex) {
+        gridApi.applyTransaction({remove: [gridApi.getRowNode(rowIndex).data]});
+    }
+
 </script>
 </body>
 </html>
