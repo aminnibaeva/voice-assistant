@@ -1,10 +1,5 @@
 package ru.kpfu.voice_assistant.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +11,11 @@ import ru.kpfu.voice_assistant.entity.User;
 import ru.kpfu.voice_assistant.repository.UserRepository;
 import ru.kpfu.voice_assistant.service.UserService;
 import ru.kpfu.voice_assistant.util.EmailUtil;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 import static ru.kpfu.voice_assistant.config.ApplicationConstants.SUBJECT_FOR_VERIFY_ACCOUNT_MAIL;
 
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void saveUser(UserDto userDto) {
+    public boolean saveUser(UserDto userDto) {
         User user = User.builder()
             .username(userDto.getUsername())
             .email(userDto.getEmail())
@@ -57,11 +57,12 @@ public class UserServiceImpl implements UserService {
         }
         else {
             if (userRepository.existsByEmailOrUsername(user.getEmail(), user.getUsername())) {
-                return;
+                return false;
             }
         }
         emailUtil.sendVerifyMail(user.getEmail(), SUBJECT_FOR_VERIFY_ACCOUNT_MAIL, userData);
         userRepository.save(user);
+        return true;
     }
 
     @Transactional

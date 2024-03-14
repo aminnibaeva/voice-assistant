@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.kpfu.voice_assistant.dto.UserConfirmation;
 import ru.kpfu.voice_assistant.dto.UserDto;
-import ru.kpfu.voice_assistant.entity.User;
 import ru.kpfu.voice_assistant.service.UserService;
 
 @Controller
@@ -28,21 +27,17 @@ public class AuthController {
     @PostMapping("/register")
     public String registration(@Valid @ModelAttribute("user") UserDto userDto,
         BindingResult result, Model model) {
-        User existing = userService.findByEmailOrUsername(userDto.getEmail(),
-            userDto.getUsername()
-        );
-        if (existing != null) {
-            result.rejectValue("email", null,
-                "There is already an account registered with that email or username"
-            );
-        }
         if (result.hasErrors()) {
             model.addAttribute("user", userDto);
             return "register";
         }
         model.addAttribute("registrationSuccessful", true);
 
-        userService.saveUser(userDto);
+        if (!userService.saveUser(userDto)) {
+            result.rejectValue("email", null,
+                    "There is already an account registered with that email or username"
+            );
+        }
         model.addAttribute("userConfirmation", new UserConfirmation());
         model.addAttribute("confirmEmail", userDto.getEmail());
 

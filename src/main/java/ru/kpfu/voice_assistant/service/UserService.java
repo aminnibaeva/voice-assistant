@@ -5,7 +5,7 @@ import ru.kpfu.voice_assistant.dto.UserDto;
 import ru.kpfu.voice_assistant.entity.User;
 
 public interface UserService {
-    void saveUser(UserDto userDto);
+    boolean saveUser(UserDto userDto);
 
     boolean confirm(UserConfirmation request);
 
