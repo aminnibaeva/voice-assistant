@@ -10,8 +10,8 @@
           rel="stylesheet"/>
     <style media="only screen">
         html, body {
-            height: 850px;
-            width: 665px;
+            height: 100%;
+            width: 100%;
             margin: 0;
             box-sizing: border-box;
             -webkit-overflow-scrolling: touch;
@@ -24,16 +24,17 @@
             padding: 0;
             overflow: auto;
         }
-
-        body {
-            padding: 16px;
-            overflow: auto;
-            background-color: transparent
-        }
     </style>
+    <link href="" rel="stylesheet" th:href="@{/css/navigation.css}">
 </head>
 <body>
-<div id="myGrid" style="height: calc(100% - 40px)" class="ag-theme-quartz"></div>
+<div class="topnav">
+    <a href="/home">Домашняя страница</a>
+    <a class="active" href="/save-domains">Домены</a>
+    <a href="/save-page">Страницы</a>
+</div>
+
+<div id="myGrid" style="height: calc(100% - 100px)" class="ag-theme-quartz"></div>
 <button class="btn btn-outline-primary btn-sm" id="addRowBtn">Добавить</button>
 <button class="btn btn-outline-primary btn-sm" onclick="sendData()">Отправить</button>
 <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@31.1.1/dist/ag-grid-community.min.js"></script>

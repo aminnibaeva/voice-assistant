@@ -4,14 +4,14 @@
     <title>Save page</title>
     <meta charSet="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&amp;display=swap"
           rel="stylesheet"/>
     <style media="only screen">
         html, body {
-            height: 900px;
-            width: 970px;
+            height: 100%;
+            width: 100%;
             margin: 0;
             box-sizing: border-box;
             -webkit-overflow-scrolling: touch;
@@ -24,21 +24,21 @@
             padding: 0;
             overflow: auto;
         }
-
-        body {
-            padding: 16px;
-            overflow: auto;
-            background-color: transparent
-        }
     </style>
 </head>
 <body>
-<select id="dropdown">
+<div class="topnav">
+    <a href="/home">Домашняя страница</a>
+    <a href="/save-domains">Домены</a>
+    <a class="active" href="/save-page">Страницы</a>
+</div>
+
+<select class="form-select" id="dropdown">
     <option value="">Выберите элемент</option>
 </select>
 
 
-<div id="myGrid" style="height: calc(100% - 100px)" class="ag-theme-quartz"></div>
+<div id="myGrid" style="height: calc(100% - 120px)" class="ag-theme-quartz"></div>
 <button class="btn btn-outline-primary btn-sm" id="addRowBtn">Добавить</button>
 <button class="btn btn-outline-primary btn-sm" onclick="sendData()">Отправить</button>
 

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Voice assistant</title>
+    <title>Голосовой ассистент</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           rel="stylesheet">
     <link href="" rel="stylesheet" th:href="@{/css/sign-up-style.css}">
@@ -14,31 +14,31 @@
     <div class="row justify-content-center" id="signUpForm">
         <div class="col-md-5">
             <div class="card">
-                <h2 class="card-title text-center">Sign In</h2>
+                <h2 class="card-title text-center">Вход</h2>
                 <div class="card-body py-md-4">
                     <form class="form-horizontal" method="post" role="form" th:action="@{/login}">
                         <div class="form-group">
-                            <label class="control-label" for="username">Email *</label>
+                            <label class="control-label" for="username">Почта</label>
                             <input class="form-control"
                                    id="username"
                                    name="username"
-                                   placeholder="Email"
+                                   placeholder="Введите почту"
                                    type="text"
                             />
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="password">Password *</label>
+                            <label class="control-label" for="password">Пароль</label>
                             <input class="form-control"
                                    id="password"
                                    name="password"
-                                   placeholder="Password"
+                                   placeholder="Введите пароль"
                                    type="password"
                             />
                         </div>
 
                         <div class="mb-3">
-                            <button class="btn btn-primary" type="submit">Login</button>
-                            <span><a th:href="@{/register}">Register</a></span>
+                            <button class="btn btn-primary" type="submit">Войти</button>
+                            <span><a th:href="@{/register}">Регистрация</a></span>
                         </div>
                     </form>
                 </div>
