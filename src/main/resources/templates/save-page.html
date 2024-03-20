@@ -4,8 +4,8 @@
     <title>Save page</title>
     <meta charSet="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&amp;display=swap"
           rel="stylesheet"/>
     <style media="only screen">
@@ -24,7 +24,12 @@
             padding: 0;
             overflow: auto;
         }
+
+        #myGrid {
+            margin: 10px;
+        }
     </style>
+    <link href="" rel="stylesheet" th:href="@{/css/navigation.css}">
 </head>
 <body>
 <div class="topnav">
@@ -33,12 +38,13 @@
     <a class="active" href="/save-page">Страницы</a>
 </div>
 
-<select class="form-select" id="dropdown">
-    <option value="">Выберите элемент</option>
-</select>
+<div class="d-flex align-items-center justify-content-center">
+    <select class="form-select" id="dropdown" style="margin: 10px; padding: 8px;">
+        <option value="">Выберите домен</option>
+    </select>
+</div>
 
-
-<div id="myGrid" style="height: calc(100% - 120px)" class="ag-theme-quartz"></div>
+<div id="myGrid" style="height: calc(100% - 170px)" class="ag-theme-quartz"></div>
 <button class="btn btn-outline-primary btn-sm" id="addRowBtn">Добавить</button>
 <button class="btn btn-outline-primary btn-sm" onclick="sendData()">Отправить</button>
 

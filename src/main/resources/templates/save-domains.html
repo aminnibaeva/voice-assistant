@@ -24,6 +24,10 @@
             padding: 0;
             overflow: auto;
         }
+
+        #myGrid {
+           margin: 10px;
+        }
     </style>
     <link href="" rel="stylesheet" th:href="@{/css/navigation.css}">
 </head>
@@ -34,7 +38,7 @@
     <a href="/save-page">Страницы</a>
 </div>
 
-<div id="myGrid" style="height: calc(100% - 100px)" class="ag-theme-quartz"></div>
+<div id="myGrid" style="height: calc(100% - 120px)" class="ag-theme-quartz"></div>
 <button class="btn btn-outline-primary btn-sm" id="addRowBtn">Добавить</button>
 <button class="btn btn-outline-primary btn-sm" onclick="sendData()">Отправить</button>
 <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@31.1.1/dist/ag-grid-community.min.js"></script>
