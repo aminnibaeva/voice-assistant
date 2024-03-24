@@ -338,3 +338,10 @@ CREATE TABLE IF NOT EXISTS page
 ALTER TABLE ONLY page
     ADD CONSTRAINT application_pages_application_id FOREIGN KEY (application_id) REFERENCES application (application_id);
 
+create table trained_models
+(
+    model          bytea,
+    application_id bigint not null
+        constraint trained_models_application_id
+            references application
+);
