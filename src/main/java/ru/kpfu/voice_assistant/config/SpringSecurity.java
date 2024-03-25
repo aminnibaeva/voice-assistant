@@ -36,7 +36,9 @@ public class SpringSecurity {
         "/get-domains",
         "/save-page",
         "/get-pages/**",
-        "/save-pages/**"
+        "/save-pages/**",
+        "/widget",
+        "/recognize-audio"
     };
 
     @Autowired

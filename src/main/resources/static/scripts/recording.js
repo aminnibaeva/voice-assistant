@@ -48,15 +48,15 @@ function sendRecording(audioBlob) {
     //определить домен, с которого идёт запрос
     document.domain;
 
-    fetch('/recognize-audio', {
+
+    fetch('http://127.0.0.1:5000/recognize/1', {
         method: 'POST',
         body: formData
     })
         .then(response => {
             if (response.status === 200) {
                 return response.json();
-            }
-            else {
+            } else {
                 throw new Error('Failed to recognize audio');
             }
         })
