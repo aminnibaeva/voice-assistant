@@ -18,6 +18,8 @@ public class Application {
     private Long applicationId;
 
     private String domain;
+    
+    private String token;
 
     @ManyToOne()
     @JoinColumn(name = "user_id")

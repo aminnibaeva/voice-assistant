@@ -44,12 +44,13 @@ function stopRecordingAndSend() {
 function sendRecording(audioBlob) {
     const formData = new FormData();
     formData.append('audio', audioBlob);
+    formData.append('token', "b1804787-2705-414c-a0ea-8ff0a75c9607");
+    formData.append('language', "ru-RU");
 
     //определить домен, с которого идёт запрос
     document.domain;
 
-
-    fetch('http://127.0.0.1:5000/recognize/1', {
+    fetch('http://127.0.0.1:5000/recognize', {
         method: 'POST',
         body: formData
     })

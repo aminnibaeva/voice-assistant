@@ -3,6 +3,7 @@ package ru.kpfu.voice_assistant.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ru.kpfu.voice_assistant.dto.DomainDto;
+import ru.kpfu.voice_assistant.dto.TokenDto;
 import ru.kpfu.voice_assistant.entity.Application;
 
 @Mapper
@@ -11,7 +12,9 @@ public interface ApplicationMapper {
     Application toEntity(DomainDto dto, Long userId);
 
     @Mapping(target = "user.id", source = "userId")
+    @Mapping(target = "token", expression = "java(java.util.UUID.randomUUID().toString())")
     Application toEntity(String domain, Long userId);
 
     DomainDto toDto(Application entity);
+    TokenDto toTokens(Application entity);
 }
