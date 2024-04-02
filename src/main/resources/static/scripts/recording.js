@@ -46,6 +46,7 @@ function sendRecording(audioBlob) {
     formData.append('audio', audioBlob);
     formData.append('token', "b1804787-2705-414c-a0ea-8ff0a75c9607");
     formData.append('language', "ru-RU");
+    formData.append('username', "123");
 
     //определить домен, с которого идёт запрос
     document.domain;

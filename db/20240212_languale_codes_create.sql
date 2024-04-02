@@ -345,3 +345,21 @@ create table trained_models
         constraint trained_models_application_id
             references application
 );
+
+create table users_application
+(
+    application_id bigint not null
+        constraint trained_models_application_id
+            references application,
+    user_id        bigint not null
+        constraint user_id_users
+            references users
+);
+
+create table users_query
+(
+    user_id bigint  not null
+        constraint user_id_users
+            references users,
+    query   varchar not null
+);
