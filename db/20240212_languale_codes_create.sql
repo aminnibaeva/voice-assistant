@@ -355,9 +355,10 @@ create table users_application
 
 create table users_query
 (
-    user_query_id bigserial primary key,
-    query         varchar(255) not null,
-    user_id       bigint       not null
+    user_query_id    bigserial primary key,
+    query            varchar(255) not null,
+    number_of_visits bigint       not null default 1,
+    user_id          bigint       not null
         constraint user_id_users
             references users
 );

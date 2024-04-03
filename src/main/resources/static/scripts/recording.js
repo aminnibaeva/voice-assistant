@@ -3,7 +3,6 @@ let audioChunks = [];
 let isRecording = false;
 
 const recordButton = document.getElementById('voice-circle');
-const chatBoxBody = document.getElementById('main-chat-box');
 
 recordButton.addEventListener('click', () => {
     if (!isRecording) {
@@ -48,9 +47,6 @@ function sendRecording(audioBlob) {
     formData.append('language', "ru-RU");
     formData.append('username', "123");
 
-    //определить домен, с которого идёт запрос
-    document.domain;
-
     fetch('http://127.0.0.1:5000/recognize', {
         method: 'POST',
         body: formData
@@ -62,17 +58,10 @@ function sendRecording(audioBlob) {
                 throw new Error('Failed to recognize audio');
             }
         })
-        .then(data => {
-            chatBoxBody.innerHTML =
-                '<div class="chat-box-command command">'
-                + '<div class="chat-box-command-text">' + data['text'] + '</div>'
-                + '</div>'
-                + chatBoxBody.innerHTML;
-        })
+        .then(() => loadHistory())
         .catch(error => {
             console.error('Error sending audio:', error);
         });
 
-    // Reset audioChunks array for the next recording
     audioChunks = [];
 }

@@ -7,7 +7,6 @@
   <title>Email Confirmation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-
       @media screen {
           @font-face {
               font-family: 'Source Sans Pro';
@@ -25,15 +24,13 @@
           }
       }
 
-
       body,
       table,
       td,
       a {
-          -ms-text-size-adjust: 100%; /* 1 */
-          -webkit-text-size-adjust: 100%; /* 2 */
+          -ms-text-size-adjust: 100%;
+          -webkit-text-size-adjust: 100%;
       }
-
 
       table,
       td {
@@ -41,11 +38,9 @@
           mso-table-lspace: 0pt;
       }
 
-
       img {
           -ms-interpolation-mode: bicubic;
       }
-
 
       a[x-apple-data-detectors] {
           font-family: inherit !important;
@@ -55,7 +50,6 @@
           color: inherit !important;
           text-decoration: none !important;
       }
-
 
       div[style*="margin: 16px 0;"] {
           margin: 0 !important;
@@ -67,7 +61,6 @@
           padding: 0 !important;
           margin: 0 !important;
       }
-
 
       table {
           border-collapse: collapse !important;
@@ -83,10 +76,6 @@
           text-decoration: none;
           border: 0;
           outline: none;
-      }
-
-      .im {
-          color: #000000;
       }
   </style>
 
