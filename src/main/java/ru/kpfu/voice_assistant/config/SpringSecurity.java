@@ -40,7 +40,8 @@ public class SpringSecurity {
             "/widget",
             "/recognize-audio",
             "/tokens",
-            "/get-tokens"
+            "/get-tokens",
+            "/history"
     };
 
     @Autowired

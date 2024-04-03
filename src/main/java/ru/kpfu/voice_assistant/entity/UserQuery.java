@@ -1,14 +1,12 @@
 package ru.kpfu.voice_assistant.entity;
 
-import java.util.List;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,17 +20,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "page")
-public class Page {
+@Table(name = "users_query")
+public class UserQuery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pageId;
-
-    private String pageName;
-
-    private String associations;
+    @Column(name = "user_query_id", nullable = false)
+    private Long userQueryId;
 
     @ManyToOne()
-    @JoinColumn(name = "application_id")
-    private Application application;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @Column(name = "query", nullable = false)
+    private String query;
 }

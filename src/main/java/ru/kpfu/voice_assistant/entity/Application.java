@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "application")
 public class Application {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long applicationId;
 
     private String domain;

@@ -18,12 +18,14 @@
         <div id="chat-box-header"> Управление сайтом</div>
         <div id="chat-box-header-line"></div>
         <div class="chat-box-search-container">
-            <input class="chat-box-search-input" id="searchbar" placeholder="Поиск команд" th:onkeyup="search()"
+            <input class="chat-box-search-input" id="searchbar" placeholder="Поиск команд"
+                   th:onkeyup="search()"
                    type="text"> <img alt="search"
-                                                    class="chat-box-search-icon"
-                                                    th:src="@{/images/search-magnifier-icon-white.png}">
+                                     class="chat-box-search-icon"
+                                     th:src="@{/images/search-magnifier-icon-white.png}">
         </div>
         <div class="chat-box-body" id="main-chat-box">
+            <div id="history-container"></div>
         </div>
         <button id="voice-circle"><img id="voice-icon"
                                        th:src="@{/images/record-off-icon-white.png}"></button>
@@ -31,5 +33,6 @@
 </div>
 
 <script th:src="@{/scripts/recording.js}" type="text/javascript"></script>
+<script th:src="@{/scripts/load-history.js}" type="text/javascript"></script>
 </body>
 </html>

@@ -301,8 +301,7 @@ VALUES ('Zulu', 'South Africa', 'zu-ZA');
 
 create table users
 (
-    id           bigserial    not null
-        primary key,
+    id           bigserial primary key,
     confirm_code varchar(255),
     email        varchar(255) not null
         constraint user_unique_email
@@ -317,8 +316,7 @@ create table users
 
 CREATE TABLE IF NOT EXISTS application
 (
-    application_id bigserial         not null
-        primary key,
+    application_id bigserial primary key,
     user_id        bigint            NOT NULL,
     domain         character varying NOT NULL
 );
@@ -328,8 +326,7 @@ ALTER TABLE ONLY application
 
 CREATE TABLE IF NOT EXISTS page
 (
-    page_id        bigserial         not null
-        primary key,
+    page_id        bigserial primary key,
     application_id bigint            NOT NULL,
     page_name      character varying NOT NULL,
     associations   character varying NOT NULL
@@ -358,8 +355,9 @@ create table users_application
 
 create table users_query
 (
-    user_id bigint  not null
+    user_query_id bigserial primary key,
+    query         varchar(255) not null,
+    user_id       bigint       not null
         constraint user_id_users
-            references users,
-    query   varchar not null
+            references users
 );
