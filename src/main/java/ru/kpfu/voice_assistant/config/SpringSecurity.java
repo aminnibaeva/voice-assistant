@@ -41,7 +41,8 @@ public class SpringSecurity {
             "/recognize-audio",
             "/tokens",
             "/get-tokens",
-            "/history"
+            "/history",
+            "/get-language-codes"
     };
 
     @Autowired

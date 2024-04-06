@@ -1,10 +1,15 @@
-CREATE TABLE IF NOT EXISTS language_codes
+create table language_codes
 (
-    language VARCHAR(100),
-    country  VARCHAR(100),
-    code     VARCHAR(100),
-    CONSTRAINT unique_language_code UNIQUE (language, code, country)
+    id       bigserial
+        constraint language_codes_pkey
+            primary key,
+    language varchar(100),
+    country  varchar(100),
+    code     varchar(100),
+    constraint unique_language_code
+        unique (language, code, country)
 );
+
 
 INSERT INTO public.language_codes (language, country, code)
 VALUES ('Afrikaans', 'South Africa', 'af-ZA');
@@ -301,7 +306,9 @@ VALUES ('Zulu', 'South Africa', 'zu-ZA');
 
 create table users
 (
-    id           bigserial primary key,
+    id           bigserial
+        constraint users_pkey
+            primary key,
     confirm_code varchar(255),
     email        varchar(255) not null
         constraint user_unique_email
@@ -314,26 +321,33 @@ create table users
             unique
 );
 
-CREATE TABLE IF NOT EXISTS application
+
+create table application
 (
-    application_id bigserial primary key,
-    user_id        bigint            NOT NULL,
-    domain         character varying NOT NULL
+    application_id bigserial
+        constraint application_pkey
+            primary key,
+    user_id        bigint  not null
+        constraint application_user_id
+            references users,
+    domain         varchar not null,
+    token          varchar(36),
+    language_id    bigint  not null
+        constraint language_id_language_codes
+            references language_codes
 );
 
-ALTER TABLE ONLY application
-    ADD CONSTRAINT application_user_id FOREIGN KEY (user_id) REFERENCES users (id);
-
-CREATE TABLE IF NOT EXISTS page
+create table page
 (
-    page_id        bigserial primary key,
-    application_id bigint            NOT NULL,
-    page_name      character varying NOT NULL,
-    associations   character varying NOT NULL
+    page_id        bigserial
+        constraint page_pkey
+            primary key,
+    application_id bigint  not null
+        constraint application_pages_application_id
+            references application,
+    page_name      varchar not null,
+    associations   varchar not null
 );
-
-ALTER TABLE ONLY page
-    ADD CONSTRAINT application_pages_application_id FOREIGN KEY (application_id) REFERENCES application (application_id);
 
 create table trained_models
 (

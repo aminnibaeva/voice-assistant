@@ -27,4 +27,8 @@ public class Application {
 
     @OneToMany(mappedBy = "application")
     private List<Page> pages;
+
+    @ManyToOne()
+    @JoinColumn(name = "language_id")
+    private LanguageCodes languageCode;
 }
