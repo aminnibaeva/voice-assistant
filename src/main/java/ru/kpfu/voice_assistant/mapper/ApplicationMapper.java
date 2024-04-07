@@ -9,12 +9,13 @@ import ru.kpfu.voice_assistant.entity.Application;
 @Mapper
 public interface ApplicationMapper {
     @Mapping(target = "user.id", source = "userId")
-    Application toEntity(DomainDto dto, Long userId);
-
-    @Mapping(target = "user.id", source = "userId")
+    @Mapping(target = "languageCode.id", source = "languageCode")
     @Mapping(target = "token", expression = "java(java.util.UUID.randomUUID().toString())")
-    Application toEntity(String domain, Long userId);
+    Application toEntity(DomainDto dto, Long userId, Long languageCode);
 
+    @Mapping(target = "language", expression = "java(entity.getLanguageCode().getLanguage() + \", \" + entity" +
+            ".getLanguageCode().getCountry())")
     DomainDto toDto(Application entity);
+
     TokenDto toTokens(Application entity);
 }
