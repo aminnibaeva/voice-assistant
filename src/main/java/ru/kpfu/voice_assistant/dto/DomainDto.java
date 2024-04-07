@@ -11,4 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DomainDto {
     private String domain;
+    private String language;
 }
