@@ -3,8 +3,6 @@ package ru.kpfu.voice_assistant.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,17 +17,14 @@ public class PageAssociationsController {
     @Autowired
     private PageService pageService;
 
-    @PostMapping("/save-pages/{domain}")
-    public void savePageAssociations(@RequestBody PageDto[] associations, @PathVariable String domain) {
-        User user = (User) SecurityContextHolder.getContext()
-            .getAuthentication().getPrincipal();
-        pageService.savePages(domain, associations, user.getUsername());
+    @PostMapping("/save-pages/{applicationId}")
+    public void savePageAssociations(@RequestBody PageDto[] associations,
+        @PathVariable Long applicationId) {
+        pageService.savePages(applicationId, associations);
     }
 
-    @GetMapping("/get-pages/{domain}")
-    public List<PageDto> getPages(@PathVariable String domain) {
-        User user = (User) SecurityContextHolder.getContext()
-            .getAuthentication().getPrincipal();
-        return pageService.getPages(user.getUsername(), domain);
+    @GetMapping("/get-pages/{applicationId}")
+    public List<PageDto> getPages(@PathVariable Long applicationId) {
+        return pageService.getPages(applicationId);
     }
 }

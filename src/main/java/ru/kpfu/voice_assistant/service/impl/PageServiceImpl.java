@@ -12,11 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kpfu.voice_assistant.dto.PageDto;
 import ru.kpfu.voice_assistant.entity.Application;
 import ru.kpfu.voice_assistant.entity.Page;
-import ru.kpfu.voice_assistant.entity.User;
 import ru.kpfu.voice_assistant.mapper.PageMapper;
 import ru.kpfu.voice_assistant.repository.DomainRepository;
 import ru.kpfu.voice_assistant.repository.PageRepository;
-import ru.kpfu.voice_assistant.repository.UserRepository;
 import ru.kpfu.voice_assistant.service.PageService;
 
 @Service
@@ -26,16 +24,12 @@ public class PageServiceImpl implements PageService {
     @Autowired
     private DomainRepository domainRepository;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private PageMapper pageMapper;
 
     @Transactional
     @Override
-    public List<PageDto> getPages(String email, String domain) {
-        User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        Application application = domainRepository.findApplicationByUserAndDomain(user, domain)
+    public List<PageDto> getPages(Long applicationId) {
+        Application application = domainRepository.findById(applicationId)
             .orElseThrow(() -> new UsernameNotFoundException("Application not found"));
         return pageRepository.getPagesByApplication(application)
             .stream()
@@ -45,10 +39,8 @@ public class PageServiceImpl implements PageService {
 
     @Transactional
     @Override
-    public void savePages(String domain, PageDto[] pages, String email) {
-        User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        Application application = domainRepository.findApplicationByUserAndDomain(user, domain)
+    public void savePages(Long applicationId, PageDto[] pages) {
+        Application application = domainRepository.findById(applicationId)
             .orElseThrow(() -> new UsernameNotFoundException("Application not found"));
 
 

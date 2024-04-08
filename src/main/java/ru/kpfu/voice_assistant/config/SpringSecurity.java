@@ -26,23 +26,25 @@ public class SpringSecurity {
         "/register",
         "/css/**",
         "/scripts/**",
-        "/images/**"
+        "/images/**",
+        "/home",
+        "/faq"
+
     };
 
     private static final String[] AUTHORIZED = {
-            "/home",
-            "/save-domains",
-            "/save-domain",
-            "/get-domains",
-            "/save-page",
-            "/get-pages/**",
-            "/save-pages/**",
-            "/widget",
-            "/recognize-audio",
-            "/tokens",
-            "/get-tokens",
-            "/history",
-            "/get-language-codes"
+        "/save-domains",
+        "/save-domain",
+        "/get-domains",
+        "/save-page",
+        "/get-pages/**",
+        "/save-pages/**",
+        "/test-widget",
+        "/recognize-audio",
+        "/tokens",
+        "/get-tokens",
+        "/history",
+        "/get-language-codes"
     };
 
     @Autowired

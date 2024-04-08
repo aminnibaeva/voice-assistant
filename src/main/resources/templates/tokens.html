@@ -1,35 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Domain list</title>
+    <title>Токены</title>
     <meta charSet="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&amp;display=swap"
           rel="stylesheet"/>
-    <style media="only screen">
-        html, body {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            box-sizing: border-box;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        html {
-            position: absolute;
-            top: 0;
-            left: 0;
-            padding: 0;
-            overflow: auto;
-        }
-
-        #myGrid {
-            margin: 10px;
-        }
-    </style>
     <link href="" rel="stylesheet" th:href="@{/css/navigation.css}">
+    <link href="" rel="stylesheet" th:href="@{/css/save-pages.css}">
 </head>
 <body>
 <div class="topnav">
@@ -37,51 +17,12 @@
     <a href="/save-domains">Домены</a>
     <a href="/save-page">Страницы</a>
     <a class="active" href="/tokens">Токены</a>
+    <a href="/faq">FAQ</a>
+    <a href="/test-widget">Тестирование</a>
 </div>
 
 <div id="myGrid" style="height: calc(100% - 120px)" class="ag-theme-quartz"></div>
 <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@31.1.1/dist/ag-grid-community.min.js"></script>
-<script>
-    let gridApi;
-
-    const gridOptions = {
-        rowData: [],
-        columnDefs: [
-            {headerName: "Домен", field: "domain", width: 500},
-            {headerName: "Токен", field: "token", width: 500},
-        ],
-        defaultColDef: {
-            filter: 'agTextColumnFilter',
-            floatingFilter: true,
-        },
-        enableCellTextSelection: true,
-        rowSelection: 'multiple',
-        suppressRowClickSelection: true,
-        pagination: true,
-        paginationPageSize: 15,
-        paginationPageSizeSelector: [15, 30, 45],
-    };
-
-    const gridDiv = document.querySelector('#myGrid');
-    gridApi = agGrid.createGrid(gridDiv, gridOptions);
-
-    fetch('/get-tokens', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(response => {
-            if (response.status === 200) {
-                return response.json();
-            }
-            else {
-                throw new Error('Failed to load domains list');
-            }
-        }
-    ).then(body => {
-            gridApi.setGridOption('rowData', body);
-        }
-    );
-</script>
+<script th:src="@{/scripts/tokens.js}" type="text/javascript"></script>
 </body>
 </html>

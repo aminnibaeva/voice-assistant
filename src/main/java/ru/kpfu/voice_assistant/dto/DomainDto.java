@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DomainDto {
+    private String id;
     private String domain;
     private String language;
 }

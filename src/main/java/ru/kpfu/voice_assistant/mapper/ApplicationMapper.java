@@ -13,8 +13,10 @@ public interface ApplicationMapper {
     @Mapping(target = "token", expression = "java(java.util.UUID.randomUUID().toString())")
     Application toEntity(DomainDto dto, Long userId, Long languageCode);
 
-    @Mapping(target = "language", expression = "java(entity.getLanguageCode().getLanguage() + \", \" + entity" +
-            ".getLanguageCode().getCountry())")
+    @Mapping(target = "language",
+        expression = "java(entity.getLanguageCode().getLanguage() + \", \" + entity" +
+                     ".getLanguageCode().getCountry())")
+    @Mapping(target = "id", source = "applicationId")
     DomainDto toDto(Application entity);
 
     TokenDto toTokens(Application entity);
