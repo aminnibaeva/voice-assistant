@@ -6,5 +6,7 @@ import ru.kpfu.voice_assistant.entity.UserQuery;
 import java.util.List;
 
 public interface UserQueryRepository extends JpaRepository<UserQuery, Long> {
-    List<UserQuery> getUsersQueriesByUserIdOrderByNumberOfVisitsDesc(Long user_id);
+    List<UserQuery> getUsersQueriesByUserIdOrderByNumberOfVisitsDesc(Long userId);
+    List<UserQuery> getUsersQueriesByUserIdAndApplicationApplicationIdOrderByNumberOfVisitsDesc(Long userId,
+        Long applicationId);
 }

@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserQueryDto {
+    private String applicationId;
     private String userQueryId;
     private String query;
 }

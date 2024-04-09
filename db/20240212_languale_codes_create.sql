@@ -357,16 +357,6 @@ create table trained_models
             references application
 );
 
-create table users_application
-(
-    application_id bigint not null
-        constraint trained_models_application_id
-            references application,
-    user_id        bigint not null
-        constraint user_id_users
-            references users
-);
-
 create table users_query
 (
     user_query_id    bigserial primary key,
@@ -374,5 +364,8 @@ create table users_query
     number_of_visits bigint       not null default 1,
     user_id          bigint       not null
         constraint user_id_users
-            references users
+            references users,
+    application_id bigint not null
+        constraint trained_models_application_id
+            references application
 );

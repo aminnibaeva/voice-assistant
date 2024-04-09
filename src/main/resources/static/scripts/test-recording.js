@@ -3,15 +3,16 @@ let audioChunks = [];
 let isRecording = false;
 
 const recordButton = document.getElementById('voice-circle');
+const dropdown = document.getElementById("dropdown");
 
-document.addEventListener("dropdown", function () {
-    loadHistory();
+dropdown.addEventListener("click", function () {
+    if (dropdown.value !== undefined && dropdown.value !== "") {
+        loadTestHistory();
+    }
 });
 
 
 recordButton.addEventListener('click', () => {
-    const dropdown = document.getElementById("dropdown");
-
     const applicationId = dropdown.value;
     if (applicationId) {
         if (!isRecording) {

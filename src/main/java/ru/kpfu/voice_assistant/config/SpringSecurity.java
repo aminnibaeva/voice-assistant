@@ -44,7 +44,8 @@ public class SpringSecurity {
         "/tokens",
         "/get-tokens",
         "/history",
-        "/get-language-codes"
+        "/get-language-codes",
+        "/test-history"
     };
 
     @Autowired

@@ -6,4 +6,6 @@ import ru.kpfu.voice_assistant.dto.UserQueryDto;
 
 public interface UserQueryService {
     List<UserQueryDto> getUserQueries(Long userId);
+
+    List<UserQueryDto> getUserQueries(String email, Long applicationId);
 }

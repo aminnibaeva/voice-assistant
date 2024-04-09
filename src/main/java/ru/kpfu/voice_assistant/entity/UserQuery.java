@@ -25,4 +25,8 @@ public class UserQuery {
 
     @Column(name = "number_of_visits", nullable = false)
     private Long numberOfVisits;
+
+    @ManyToOne()
+    @JoinColumn(name = "application_id")
+    private Application application;
 }
