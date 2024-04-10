@@ -11,7 +11,6 @@ dropdown.addEventListener("click", function () {
     }
 });
 
-
 recordButton.addEventListener('click', () => {
     const applicationId = dropdown.value;
     if (applicationId) {

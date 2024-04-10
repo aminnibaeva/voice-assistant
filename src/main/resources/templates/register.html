@@ -60,7 +60,8 @@
                     <form method="post" role="form" th:action="@{/confirm}"
                           th:object="${userConfirmation}">
                         <div class="form-group">
-                            <input class="form-control" id="confirmCode" th:field="*{confirmCode}">
+                            <input class="form-control" id="confirmCode" th:field="*{confirmCode}"
+                                   placeholder="Код подтверждения">
                             <input class="form-control" id="confirmEmail" style="display: none;"
                                    th:name="confirmEmail" th:value="${confirmEmail}">
                         </div>

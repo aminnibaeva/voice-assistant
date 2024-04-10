@@ -2,6 +2,10 @@
     font-family: "Roboto", serif;
 }
 
+button:focus {
+    outline: none;
+}
+
 #chat-circle {
     position: fixed;
     bottom: 2%;

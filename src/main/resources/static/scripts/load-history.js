@@ -1,6 +1,3 @@
-document.addEventListener("DOMContentLoaded", function () {
-    loadHistory();
-});
 
 function loadHistory() {
     const userId = 2; // TODO: Замените на актуальный ID пользователя

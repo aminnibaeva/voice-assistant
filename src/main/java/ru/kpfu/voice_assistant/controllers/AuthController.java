@@ -1,5 +1,6 @@
 package ru.kpfu.voice_assistant.controllers;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,9 +9,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.kpfu.voice_assistant.dto.RecoveryPasswordDto;
 import ru.kpfu.voice_assistant.dto.UserConfirmation;
 import ru.kpfu.voice_assistant.dto.UserDto;
 import ru.kpfu.voice_assistant.service.UserService;
+
+import java.io.IOException;
 
 @Controller
 public class AuthController {
@@ -24,9 +28,15 @@ public class AuthController {
         return "register";
     }
 
+    @GetMapping("recovery")
+    public String showRecoveryPasswordForm(Model model) {
+        model.addAttribute("recoveryPassword", new RecoveryPasswordDto());
+        return "recovery";
+    }
+
     @PostMapping("/register")
     public String registration(@Valid @ModelAttribute("user") UserDto userDto,
-        BindingResult result, Model model) {
+                               BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("user", userDto);
             return "register";
@@ -48,5 +58,16 @@ public class AuthController {
     public String confirm(@Valid @ModelAttribute("userConfirmation") UserConfirmation user) {
         userService.confirm(user);
         return "login";
+    }
+
+    @PostMapping("/recovery")
+    public String passwordRecovery(@Valid @ModelAttribute("recoveryPassword") RecoveryPasswordDto recoveryPassword,
+                                   Model model, HttpServletResponse response) throws IOException {
+        if (!userService.recoveryPassword(recoveryPassword.getEmail())) {
+            model.addAttribute("userNotExists", true);
+            return "recovery";
+        } else {
+            return "login";
+        }
     }
 }

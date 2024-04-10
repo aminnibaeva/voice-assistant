@@ -17,19 +17,19 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SpringSecurity {
     private static final String[] PERMIT_ALL = {
-        "/auth/**",
-        "/swagger-ui/**",
-        "/swagger-resources/*",
-        "/v3/api-docs/**",
-        "/login",
-        "/confirm",
-        "/register",
-        "/css/**",
-        "/scripts/**",
-        "/images/**",
-        "/home",
-        "/faq"
-
+            "/auth/**",
+            "/swagger-ui/**",
+            "/swagger-resources/*",
+            "/v3/api-docs/**",
+            "/login",
+            "/recovery",
+            "/confirm",
+            "/register",
+            "/css/**",
+            "/scripts/**",
+            "/images/**",
+            "/home",
+            "/faq"
     };
 
     private static final String[] AUTHORIZED = {

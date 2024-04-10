@@ -1,10 +1,5 @@
 package ru.kpfu.voice_assistant.util;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
-
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -15,6 +10,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import static ru.kpfu.voice_assistant.config.ApplicationConstants.FREEMARKER_RECOVERY_PASSWORD_TEMPLATE_NAME;
 import static ru.kpfu.voice_assistant.config.ApplicationConstants.FREEMARKER_TEMPLATE_PATH;
@@ -33,8 +33,11 @@ public class EmailUtil {
         sendMail(to, subject, data, FREEMARKER_RECOVERY_PASSWORD_TEMPLATE_NAME);
     }
 
-    private void sendMail(String to, String subject, Map<String, String> data,
-        String templateName) {
+    public void sendVerifyMail(String to, String subject, Map<String, String> data) {
+        sendMail(to, subject, data, FREEMARKER_VERIFY_ACCOUNT_TEMPLATE_NAME);
+    }
+
+    private void sendMail(String to, String subject, Map<String, String> data, String templateName) {
         Configuration configuration = prepareConfiguration();
 
         configuration.setClassForTemplateLoading(EmailUtil.class, FREEMARKER_TEMPLATE_PATH);
@@ -48,8 +51,7 @@ public class EmailUtil {
 
             string = stringWriter.toString();
 
-        }
-        catch (IOException | TemplateException e) {
+        } catch (IOException | TemplateException e) {
             throw new RuntimeException(e);
         }
 
@@ -72,14 +74,10 @@ public class EmailUtil {
         return configuration;
     }
 
+
     private Map<String, Object> prepareData(Map<String, String> freemarkerData) {
         Map<String, Object> data = new HashMap<>();
         data.put("data", freemarkerData);
         return data;
     }
-
-    public void sendVerifyMail(String to, String subject, Map<String, String> data) {
-        sendMail(to, subject, data, FREEMARKER_VERIFY_ACCOUNT_TEMPLATE_NAME);
-    }
-
 }

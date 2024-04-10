@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import static ru.kpfu.voice_assistant.config.ApplicationConstants.SUBJECT_FOR_RECOVERY_PASSWORD_MAIL;
 import static ru.kpfu.voice_assistant.config.ApplicationConstants.SUBJECT_FOR_VERIFY_ACCOUNT_MAIL;
 
 
@@ -80,9 +81,22 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @Transactional
     @Override
-    public User findByEmailOrUsername(String email, String username) {
-        return userRepository.findByEmailOrUsername(email, username);
+    public boolean recoveryPassword(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isEmpty()) {
+            return false;
+        }
+        String newPassword = UUID.randomUUID().toString();
+        user.get().setPassword(passwordEncoder.encode(newPassword));
+
+        userRepository.save(user.get());
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("newPassword", newPassword);
+
+        emailUtil.sendRecoveryPasswordMail(email, SUBJECT_FOR_RECOVERY_PASSWORD_MAIL, userData);
+
+        return true;
     }
 }

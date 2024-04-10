@@ -64,3 +64,7 @@ function sendRecording(audioBlob) {
 
     audioChunks = [];
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    loadHistory();
+});
