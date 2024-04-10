@@ -6,7 +6,7 @@ import ru.kpfu.voice_assistant.dto.UserDto;
 public interface UserService {
     boolean saveUser(UserDto userDto);
 
-    boolean confirm(UserConfirmation request);
+    void confirm(UserConfirmation request);
 
     boolean recoveryPassword(String email);
 }

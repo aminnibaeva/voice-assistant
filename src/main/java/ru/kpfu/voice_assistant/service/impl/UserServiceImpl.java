@@ -68,17 +68,14 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public boolean confirm(UserConfirmation request) {
+    public void confirm(UserConfirmation request) {
         User user = userRepository.findByEmail(request.getConfirmEmail())
-            .orElseThrow(
-                () -> new UsernameNotFoundException("Пользователь с такой почтой не найден"));
+            .orElseThrow(() -> new UsernameNotFoundException("Пользователь с такой почтой не найден"));
         if (user.getState().equals(User.State.NOT_CONFIRMED) && user.getConfirmCode()
             .equals(request.getConfirmCode())) {
             user.setState(User.State.CONFIRMED);
             userRepository.save(user);
-            return true;
         }
-        return false;
     }
 
     @Override

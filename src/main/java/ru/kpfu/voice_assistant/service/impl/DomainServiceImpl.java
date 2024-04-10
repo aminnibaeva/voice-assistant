@@ -18,6 +18,7 @@ import ru.kpfu.voice_assistant.service.DomainService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,14 +38,14 @@ public class DomainServiceImpl implements DomainService {
     @Override
     public void saveDomains(DomainDto[] domainDtos, String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь с такой почтой не найден"));
         List<Application> currentDomains = domainRepository.getApplicationsByUser(user);
         List<Application> domainToSave = new ArrayList<>();
         Arrays.asList(domainDtos).forEach(domain -> {
             String[] languageCountry = domain.getLanguage().split(", ");
             LanguageCodes languageCodes =
                     languageCodesRepository.findByLanguageAndCountry(languageCountry[0], languageCountry[1])
-                            .orElseThrow(() -> new UsernameNotFoundException("Language code not found"));
+                            .orElseThrow(() -> new NoSuchElementException("Код языка не найден"));
             Optional<Application> application = findByDomain(currentDomains, domain.getDomain(),
                     languageCodes.getId());
             if (application.isEmpty()) {
@@ -71,7 +72,7 @@ public class DomainServiceImpl implements DomainService {
     @Override
     public List<DomainDto> getDomains(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь с такой почтой не найден"));
         return domainRepository.getApplicationsByUserOrderByApplicationId(user)
                 .stream()
                 .map(applicationMapper::toDto)
@@ -81,7 +82,7 @@ public class DomainServiceImpl implements DomainService {
     @Override
     public List<TokenDto> getTokens(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь с такой почтой не найден"));
         return domainRepository.getApplicationsByUser(user)
                 .stream()
                 .map(applicationMapper::toTokens)

@@ -1,6 +1,5 @@
 package ru.kpfu.voice_assistant.controllers;
 
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +12,6 @@ import ru.kpfu.voice_assistant.dto.RecoveryPasswordDto;
 import ru.kpfu.voice_assistant.dto.UserConfirmation;
 import ru.kpfu.voice_assistant.dto.UserDto;
 import ru.kpfu.voice_assistant.service.UserService;
-
-import java.io.IOException;
 
 @Controller
 public class AuthController {
@@ -62,7 +59,7 @@ public class AuthController {
 
     @PostMapping("/recovery")
     public String passwordRecovery(@Valid @ModelAttribute("recoveryPassword") RecoveryPasswordDto recoveryPassword,
-                                   Model model, HttpServletResponse response) throws IOException {
+                                   Model model) {
         if (!userService.recoveryPassword(recoveryPassword.getEmail())) {
             model.addAttribute("userNotExists", true);
             return "recovery";
