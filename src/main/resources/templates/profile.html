@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Домашняя страница</title>
+    <meta charSet="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="" rel="stylesheet" th:href="@{/css/navigation.css}">
+    <link href="" rel="stylesheet" th:href="@{/css/home.css}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body>
+<div class="topnav">
+    <a class="active" href="/home">Домашняя страница</a>
+    <a href="/save-domains">Домены</a>
+    <a href="/save-page">Страницы</a>
+    <a href="/tokens">Токены</a>
+    <a href="/faq">FAQ</a>
+    <a href="/test-widget">Тестирование</a>
+    <a class="profile" href="/profile">Профиль</a>
+</div>
+
+<div class="container">
+    <form method="post" role="form" th:action="@{/change-password}" th:object="${changePassword}">
+        <p class="text-danger" th:errors="*{oldPassword}"
+           th:if="${#fields.hasErrors('oldPassword')}">
+        </p>
+
+        <div class="form-group">
+            <input class="form-control" id="oldPassword" placeholder="Старый пароль"
+                   th:field="*{oldPassword}" type="password">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" id="newPassword" placeholder="Новый пароль"
+                   th:field="*{newPassword}" type="password">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" id="confirmNewPassword" placeholder="Подтвердите новый пароль"
+                   th:field="*{confirmNewPassword}" type="password">
+        </div>
+        <div class="d-flex flex-row align-items-center justify-content-between">
+            <button class="btn btn-primary" type="submit">Отправить</button>
+        </div>
+    </form>
+
+    <div style="margin-top: 30px">
+        <button class="btn btn-primary" href="/logout">Выйти из аккаунта</button>
+    </div>
+</div>
+
+</body>
+</html>

@@ -29,23 +29,26 @@ public class SpringSecurity {
             "/scripts/**",
             "/images/**",
             "/home",
-            "/faq"
+            "/faq",
+            "/"
     };
 
     private static final String[] AUTHORIZED = {
         "/save-domains",
         "/save-domain",
-        "/get-domains",
-        "/save-page",
-        "/get-pages/**",
-        "/save-pages/**",
-        "/test-widget",
-        "/recognize-audio",
-        "/tokens",
-        "/get-tokens",
-        "/history",
-        "/get-language-codes",
-        "/test-history"
+            "/get-domains",
+            "/save-page",
+            "/get-pages/**",
+            "/save-pages/**",
+            "/test-widget",
+            "/recognize-audio",
+            "/tokens",
+            "/get-tokens",
+            "/history",
+            "/get-language-codes",
+            "/test-history",
+            "/change-password",
+            "/profile"
     };
 
     @Autowired
@@ -59,14 +62,15 @@ public class SpringSecurity {
                     .requestMatchers(AUTHORIZED).authenticated()
             ).formLogin(
                 form -> form
-                    .loginPage("/login")
-                    .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/home")
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/home", true)
                     .permitAll()
             ).logout(
                 logout -> logout
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .permitAll()
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("/home")
+                        .permitAll()
             );
         return http.build();
     }

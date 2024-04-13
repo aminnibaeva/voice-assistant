@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kpfu.voice_assistant.dto.ChangePasswordDto;
 import ru.kpfu.voice_assistant.dto.UserConfirmation;
 import ru.kpfu.voice_assistant.dto.UserDto;
 import ru.kpfu.voice_assistant.entity.User;
@@ -95,5 +96,21 @@ public class UserServiceImpl implements UserService {
         emailUtil.sendRecoveryPasswordMail(email, SUBJECT_FOR_RECOVERY_PASSWORD_MAIL, userData);
 
         return true;
+    }
+
+    @Override
+    public String changePassword(String email, ChangePasswordDto changePasswordDto) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь с такой почтой не найден"));
+
+        if (!changePasswordDto.getNewPassword().equals(changePasswordDto.getConfirmNewPassword())) {
+            return "Пароли не совпадают.";
+        }
+        if (!passwordEncoder.matches(changePasswordDto.getOldPassword(), user.getPassword())) {
+            return "Старый пароль не совпадает.";
+        }
+        user.setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
+        userRepository.save(user);
+        return null;
     }
 }
