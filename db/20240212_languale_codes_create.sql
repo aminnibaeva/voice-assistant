@@ -365,7 +365,19 @@ create table users_query
     user_id          bigint       not null
         constraint user_id_users
             references users,
-    application_id bigint not null
+    application_id   bigint       not null
         constraint trained_models_application_id
             references application
+);
+
+create table filter
+(
+    filter_id      bigserial
+        constraint filters_pkey
+            primary key,
+    application_id bigint  not null
+        constraint application_pages_application_id
+            references application,
+    filter_name    varchar not null,
+    filter_type    varchar not null
 );

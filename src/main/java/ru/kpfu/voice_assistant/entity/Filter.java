@@ -1,6 +1,8 @@
 package ru.kpfu.voice_assistant.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,15 +21,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "page")
-public class Page {
+@Table(name = "filter")
+public class Filter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pageId;
+    private Long filterId;
 
-    private String pageName;
+    private String filterName;
 
-    private String associations;
+    @Enumerated(EnumType.STRING)
+    private FilterType filterType;
 
     @ManyToOne()
     @JoinColumn(name = "application_id")

@@ -36,19 +36,22 @@ public class SpringSecurity {
     private static final String[] AUTHORIZED = {
         "/save-domains",
         "/save-domain",
-            "/get-domains",
-            "/save-page",
-            "/get-pages/**",
-            "/save-pages/**",
-            "/test-widget",
-            "/recognize-audio",
-            "/tokens",
-            "/get-tokens",
-            "/history",
-            "/get-language-codes",
-            "/test-history",
-            "/change-password",
-            "/profile"
+        "/get-domains",
+        "/save-page",
+        "/get-pages/**",
+        "/save-pages/**",
+        "/get-filters/**",
+        "/save-filters/**",
+        "/test-widget",
+        "/recognize-audio",
+        "/tokens",
+        "/get-tokens",
+        "/history",
+        "/get-language-codes",
+        "/test-history",
+        "/change-password",
+        "/profile",
+        "/save-filters"
     };
 
     @Autowired
