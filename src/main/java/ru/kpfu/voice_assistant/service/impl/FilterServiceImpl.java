@@ -2,6 +2,7 @@ package ru.kpfu.voice_assistant.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kpfu.voice_assistant.dto.FilterDto;
 import ru.kpfu.voice_assistant.entity.Application;
 import ru.kpfu.voice_assistant.mapper.FilterMapper;
@@ -33,7 +34,11 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
+    @Transactional
     public void saveFilters(FilterDto[] filters, Long applicationId) {
+        Application application = domainRepository.findById(applicationId)
+            .orElseThrow(() -> new NoSuchElementException("Приложение с таким айди не найдено"));
+        filterRepository.deleteByApplication(application);
         filterRepository.saveAll(
             Arrays.stream(filters)
                 .map(filter -> {
