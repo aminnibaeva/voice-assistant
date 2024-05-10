@@ -64,8 +64,8 @@ document.getElementById('dropdown').addEventListener('change', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     const addRowBtn = document.getElementById('addRowBtn');
-    const newRowData = {filterName: ""};
     addRowBtn.addEventListener('click', function () {
+        const newRowData = {filterName: ""};
         gridApi.applyTransaction({add: [newRowData]});
         if (!gridApi.rowData) {
             gridApi.rowData = [];

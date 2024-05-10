@@ -42,6 +42,7 @@ public class SpringSecurity {
         "/save-pages/**",
         "/get-filters/**",
         "/save-filters/**",
+        "/test-filters",
         "/test-widget",
         "/recognize-audio",
         "/tokens",

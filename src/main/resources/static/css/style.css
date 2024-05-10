@@ -158,3 +158,18 @@ button:focus {
 #voice-icon {
     height: 80%;
 }
+
+#voice-circle-filter {
+    right: 50%;
+    background: black;
+    width: 55px;
+    height: 55px;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+
+#voice-icon-filter {
+    height: 80%;
+}
