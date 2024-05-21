@@ -1,5 +1,6 @@
 package ru.kpfu.voice_assistant.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -23,14 +24,27 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "username", nullable = false)
     private String username;
+
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "email", nullable = false)
     private String email;
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
     private Role role;
+
+    @Column(name = "confirm_code", nullable = false)
     private String confirmCode;
+
     @Enumerated(value = EnumType.STRING)
+    @Column(name = "state", nullable = false)
     private State state;
 
     public enum State {

@@ -3,7 +3,8 @@ let gridApi;
 const gridOptions = {
     rowData: [],
     columnDefs: [
-        {headerName: "Страница", field: "pageName", editable: true, width: 300},
+        {headerName: "Название страницы", field: "pageName", editable: true, width: 300},
+        {headerName: "Адрес страницы", field: "url", editable: true, width: 300},
         {headerName: "Ассоциация", field: "associations", editable: true, width: 500},
         {
             headerName: '',
@@ -69,7 +70,7 @@ function sendData() {
     let pages = [];
 
     gridApi.forEachNode(node => {
-        pages.push({pageName: node.data['pageName'], associations: node.data['associations']});
+        pages.push({pageName: node.data['pageName'], url: node.data['url'], associations: node.data['associations']});
     });
     const dropdown = document.getElementById("dropdown");
 

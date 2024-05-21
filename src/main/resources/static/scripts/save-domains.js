@@ -3,7 +3,8 @@ let gridApi;
 const gridOptions = {
     rowData: [],
     columnDefs: [
-        {headerName: "Домен", field: "domain", editable: true, width: 500},
+        {headerName: "Имя сайта", field: "domain", editable: true, width: 500},
+        {headerName: "Ссылка на сайт", field: "url", editable: true, width: 500},
         {
             headerName: "Язык",
             field: "language",

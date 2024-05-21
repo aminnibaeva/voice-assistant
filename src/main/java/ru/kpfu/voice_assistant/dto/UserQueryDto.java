@@ -12,5 +12,7 @@ import lombok.Setter;
 public class UserQueryDto {
     private String applicationId;
     private String userQueryId;
-    private String query;
+    private String queryName;
+    private String url;
+    private String urlApplication;
 }

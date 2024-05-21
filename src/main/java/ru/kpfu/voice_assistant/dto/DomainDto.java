@@ -12,5 +12,6 @@ import lombok.Setter;
 public class DomainDto {
     private String id;
     private String domain;
+    private String url;
     private String language;
 }

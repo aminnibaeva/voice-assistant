@@ -11,5 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PageDto {
     private String pageName;
+    private String url;
     private String associations;
 }

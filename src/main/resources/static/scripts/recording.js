@@ -44,7 +44,7 @@ function sendRecording(audioBlob) {
     const formData = new FormData();
     formData.append('audio', audioBlob);
     formData.append('token', applicationId);
-    formData.append('username', "123");
+    formData.append('username', "bomoked376");//TODO
 
     fetch('http://127.0.0.1:5000/recognize', {
         method: 'POST',

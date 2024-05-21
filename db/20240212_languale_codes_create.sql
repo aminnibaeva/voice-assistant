@@ -3,9 +3,9 @@ create table language_codes
     id       bigserial
         constraint language_codes_pkey
             primary key,
-    language varchar(100),
-    country  varchar(100),
-    code     varchar(100),
+    language varchar(100) not null,
+    country  varchar(100) not null,
+    code     varchar(100) not null,
     constraint unique_language_code
         unique (language, code, country)
 );
@@ -315,7 +315,7 @@ create table users
             unique,
     password     varchar(255) not null,
     role         varchar(255) not null,
-    state        varchar(255),
+    state        varchar(255) not null,
     username     varchar(255) not null
         constraint user_unique_username
             unique
@@ -331,6 +331,7 @@ create table application
         constraint application_user_id
             references users,
     domain         varchar not null,
+    url            varchar not null,
     token          varchar(36),
     language_id    bigint  not null
         constraint language_id_language_codes
@@ -342,6 +343,7 @@ create table page
     page_id        bigserial
         constraint page_pkey
             primary key,
+    url            varchar not null,
     application_id bigint  not null
         constraint application_pages_application_id
             references application,
@@ -360,7 +362,9 @@ create table trained_models
 create table users_query
 (
     user_query_id    bigserial primary key,
-    query            varchar(255) not null,
+    query_name       varchar(255) not null,
+    url              varchar(255) not null,
+    url_application  varchar(255) not null,
     number_of_visits bigint       not null default 1,
     user_id          bigint       not null
         constraint user_id_users

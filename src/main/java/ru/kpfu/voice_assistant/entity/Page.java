@@ -1,5 +1,6 @@
 package ru.kpfu.voice_assistant.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,13 +24,19 @@ import lombok.Setter;
 public class Page {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "page_id", nullable = false)
     private Long pageId;
 
+    @Column(name = "page_name", nullable = false)
     private String pageName;
 
+    @Column(name = "url", nullable = false)
+    private String url;
+
+    @Column(name = "associations", nullable = false)
     private String associations;
 
     @ManyToOne()
-    @JoinColumn(name = "application_id")
+    @JoinColumn(name = "application_id", nullable = false)
     private Application application;
 }

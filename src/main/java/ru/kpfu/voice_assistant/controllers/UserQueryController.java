@@ -1,7 +1,5 @@
 package ru.kpfu.voice_assistant.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -10,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kpfu.voice_assistant.dto.UserQueryDto;
 import ru.kpfu.voice_assistant.service.UserQueryService;
+
+import java.util.List;
 
 @RestController
 public class UserQueryController {

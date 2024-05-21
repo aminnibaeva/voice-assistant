@@ -1,6 +1,6 @@
 
 function loadHistory() {
-    const userId = 2; // TODO: Замените на актуальный ID пользователя
+    const userId = 3; // TODO: Замените на актуальный ID пользователя
     fetch('/history?user_id=' + userId)
         .then(response => {
             if (response.ok) {
@@ -28,8 +28,8 @@ function displayHistory(historyData) {
 
         const link = document.createElement("a");
         link.className = "page-link";
-        link.href = "/" + user_query.query;
-        link.textContent = user_query.query;
+        link.href = user_query.urlApplication + user_query.url;
+        link.textContent = user_query.queryName;
         link.onclick = function () {
             updateQuery(user_query.userQueryId);
         };

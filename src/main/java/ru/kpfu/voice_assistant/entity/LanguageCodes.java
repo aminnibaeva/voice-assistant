@@ -23,12 +23,13 @@ import lombok.Setter;
 public class LanguageCodes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "language", nullable = false)
     private String language;
 
-    @Column(name = "country")
+    @Column(name = "country", nullable = false)
     private String country;
 
     @Column(name = "code", nullable = false)
