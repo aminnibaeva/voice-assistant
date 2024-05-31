@@ -351,14 +351,6 @@ create table page
     associations   varchar not null
 );
 
-create table trained_models
-(
-    model          bytea,
-    application_id bigint not null
-        constraint trained_models_application_id
-            references application
-);
-
 create table users_query
 (
     user_query_id    bigserial primary key,
